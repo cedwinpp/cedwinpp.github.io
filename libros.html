@@ -7,8 +7,6 @@
     <title>Mis Obras - Ciro Edwin Portocarrero Pimentel</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
-
-    <!-- LÍNEA AÑADIDA: CSS para la galería de zoom -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.css">
 </head>
 <body>
@@ -29,25 +27,31 @@
     </header>
 
     <main class="container">
+
+        <!-- BOTONES DE FILTRO AÑADIDOS -->
+        <div class="filter-buttons">
+            <button class="filter-btn active" data-filter="todos">Mostrar Todos</button>
+            <button class="filter-btn" data-filter="literatura">Obras Literarias</button>
+            <button class="filter-btn" data-filter="texto">Libros de Texto</button>
+        </div>
+
         <!-- SECCIÓN DE LITERATURA -->
         <section id="literatura" class="reveal">
             <h2 class="section-title">Literatura: Voces en Papel</h2>
-            <!-- CAMBIO AQUÍ: Añadida la clase "gallery" -->
             <div class="book-grid gallery">
-                <!-- Tarjeta de Libro 1 (Ejemplo) -->
-                <div class="book-card">
-                    <!-- CAMBIO AQUÍ: La imagen ahora está dentro de un enlace <a> -->
-                    <a href="images/portada_sombra_suenos2.jpg" title="Ver portada de Una sombra sobre los sueños">
-                        <img src="images/portada_sombra_suenos2.jpg" alt="Portada de Una sombra sobre los sueños">
+                <!-- CAMBIO IMPORTANTE: Añadimos la clase "literatura" a la tarjeta del libro -->
+                <div class="book-card literatura">
+                    <a href="images/portada_sombra_suenos.jpg" title="Ver portada de Una sombra sobre los sueños">
+                        <img src="images/portada_sombra_suenos.jpg" alt="Portada de Una sombra sobre los sueños">
                     </a>
                     <h3 class="book-title">Una sombra sobre los sueños</h3>
                     <p class="book-description">
-                        Es un viaje literario al corazón de los Andes, donde la infancia, el misterio y la memoria se entrelazan en relatos cargados de simbolismo. A través de una prosa melancólica y evocadora, Ciro Edwin Portocarrero retrata un pueblo andino donde cada montaña guarda secretos y cada silencio revela una historia. Una obra que celebra la identidad, el misticismo y el amor ancestral.
+                        Una historia que se adentra en los misterios del alma, explorando los límites entre la realidad y la fantasía en un viaje inolvidable.
                     </p>
-                    <a href="https://www.amazon.es/UNA-SOMBRA-SOBRE-LOS-SUE%C3%91OS-ebook/dp/B0BDLSG5YQ" class="btn-amazon" target="_blank">Ver en Amazon</a>
+                    <a href="#" class="btn-amazon" target="_blank">Ver en Amazon</a>
                 </div>
 
-                <!-- Para añadir más libros, copia y pega la tarjeta de arriba y modifica los datos -->
+                <!-- Para añadir otro libro de LITERATURA, copia la tarjeta de arriba y pégala aquí. Asegúrate de que tenga la clase "literatura" -->
 
             </div>
         </section>
@@ -55,11 +59,9 @@
         <!-- SECCIÓN DE LIBROS DE TEXTO -->
         <section id="libros-texto" class="reveal">
             <h2 class="section-title">Libros de Texto</h2>
-            <!-- CAMBIO AQUÍ: Añadida la clase "gallery" -->
             <div class="book-grid gallery">
-                <!-- Tarjeta de Libro de Texto 1 (Ejemplo) -->
-                <div class="book-card">
-                    <!-- CAMBIO AQUÍ: La imagen ahora está dentro de un enlace <a> -->
+                <!-- CAMBIO IMPORTANTE: Añadimos la clase "texto" a la tarjeta del libro -->
+                <div class="book-card texto">
                     <a href="images/portada_libro_texto_ejemplo.jpg" title="Ver portada de Título del Libro de Texto">
                          <img src="images/portada_libro_texto_ejemplo.jpg" alt="Portada de Libro de Texto">
                     </a>
@@ -70,7 +72,7 @@
                     <a href="#" class="btn-amazon" target="_blank">Ver en Amazon</a>
                 </div>
                 
-                 <!-- Para añadir más libros, copia y pega la tarjeta de arriba y modifica los datos -->
+                 <!-- Para añadir otro libro de TEXTO, copia la tarjeta de arriba y pégala aquí. Asegúrate de que tenga la clase "texto" -->
 
             </div>
         </section>
@@ -80,7 +82,6 @@
         <p>© 2025 Ciro Edwin Portocarrero Pimentel. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- LÍNEA AÑADIDA: JS para la galería de zoom (debe ir antes que main.js) -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.js" async></script>
     <script src="js/main.js"></script>
 </body>
