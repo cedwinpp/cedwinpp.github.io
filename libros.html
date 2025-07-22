@@ -28,21 +28,19 @@
 
     <main class="container">
 
-        <!-- BOTONES DE FILTRO AÑADIDOS -->
         <div class="filter-buttons">
             <button class="filter-btn active" data-filter="todos">Mostrar Todos</button>
             <button class="filter-btn" data-filter="literatura">Obras Literarias</button>
             <button class="filter-btn" data-filter="texto">Libros de Texto</button>
         </div>
 
-        <!-- SECCIÓN DE LITERATURA -->
-        <section id="literatura" class="reveal">
-<h2 class="section-title">
-    Literatura
-    <span class="section-subtitle">(Voces en papel)</span>
-</h2>
+        <!-- CAMBIO CLAVE: Añadidas las clases "book-section" y "literatura" a la sección -->
+        <section id="literatura" class="reveal book-section literatura">
+            <h2 class="section-title">
+                Literatura
+                <span class="section-subtitle">(Voces en papel)</span>
+            </h2>
             <div class="book-grid gallery">
-                <!-- CAMBIO IMPORTANTE: Añadimos la clase "literatura" a la tarjeta del libro -->
                 <div class="book-card literatura">
                     <a href="images/portada_sombra_suenos2.jpg" title="Ver portada de Una sombra sobre los sueños">
                         <img src="images/portada_sombra_suenos2.jpg" alt="Portada de Una sombra sobre los sueños">
@@ -53,20 +51,16 @@
                     </p>
                     <a href="#" class="btn-amazon" target="_blank">Ver en Amazon</a>
                 </div>
-
-                <!-- Para añadir otro libro de LITERATURA, copia la tarjeta de arriba y pégala aquí. Asegúrate de que tenga la clase "literatura" -->
-
             </div>
         </section>
 
-        <!-- SECCIÓN DE LIBROS DE TEXTO -->
-        <section id="libros-texto" class="reveal">
+        <!-- CAMBIO CLAVE: Añadidas las clases "book-section" y "texto" a la sección -->
+        <section id="libros-texto" class="reveal book-section texto">
             <h2 class="section-title">
-    Libros de Texto
-    <span class="section-subtitle">(Libros pensados para un aprendizaje autodidacta. Su enfoque directo y eminentemente práctico, lo hacen muy útil.)</span>
-</h2>
+                Libros de Texto
+                <span class="section-subtitle">(Libros pensados para un aprendizaje autodidacta. Su enfoque directo y eminentemente práctico, lo hacen muy útil.)</span>
+            </h2>
             <div class="book-grid gallery">
-                <!-- CAMBIO IMPORTANTE: Añadimos la clase "texto" a la tarjeta del libro -->
                 <div class="book-card texto">
                     <a href="images/portada_libro_texto_ejemplo.jpg" title="Ver portada de Título del Libro de Texto">
                          <img src="images/portada_libro_texto_ejemplo.jpg" alt="Portada de Libro de Texto">
@@ -77,9 +71,6 @@
                     </p>
                     <a href="https://www.amazon.es/UNA-SOMBRA-SOBRE-LOS-SUE%C3%91OS-ebook/dp/B0BDLSG5YQ" class="btn-amazon" target="_blank">Ver en Amazon</a>
                 </div>
-                
-                 <!-- Para añadir otro libro de TEXTO, copia la tarjeta de arriba y pégala aquí. Asegúrate de que tenga la clase "texto" -->
-
             </div>
         </section>
     </main>
