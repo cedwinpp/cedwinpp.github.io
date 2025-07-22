@@ -427,3 +427,54 @@ h1, h2, h3 {
     margin-top: 0.3rem; /* Pequeño espacio para separarlo del título */
     line-height: 1.2; /* Ajustamos la altura de línea */
 }
+/* --- ESTILOS PARA LA PÁGINA DE GALERÍA --- */
+.photo-grid {
+    display: grid;
+    /* Crea una cuadrícula responsive con columnas de al menos 300px */
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.photo-item {
+    position: relative; /* Necesario para posicionar el pie de foto */
+    overflow: hidden; /* Oculta lo que se salga del contenedor */
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    cursor: zoom-in;
+}
+
+.photo-item a {
+    display: block; /* Asegura que el enlace ocupe todo el espacio */
+    height: 100%;
+}
+
+.photo-item img {
+    width: 100%;
+    height: 250px; /* Damos una altura fija a todas las miniaturas */
+    object-fit: cover; /* Recorta la imagen para que rellene el espacio sin deformarse */
+    display: block;
+    transition: transform 0.4s ease;
+}
+
+.photo-item:hover img {
+    transform: scale(1.1); /* Efecto de zoom sutil al pasar el ratón */
+}
+
+/* Estilo para el pie de foto que aparece al pasar el ratón */
+.photo-caption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: #fff;
+    padding: 2rem 1rem 1rem; /* Más espacio arriba para el degradado */
+    text-align: left;
+    font-weight: 700;
+    transform: translateY(100%); /* Empieza oculto abajo */
+    transition: transform 0.4s ease;
+}
+
+.photo-item:hover .photo-caption {
+    transform: translateY(0); /* Lo muestra al pasar el ratón */
+}
