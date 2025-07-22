@@ -406,8 +406,22 @@ h1, h2, h3 {
 .book-card.hidden {
     display: none;
 }
-/* MEJORA: Cambia el color de los subtítulos en la página de libros */
-#literatura .section-title,
-#libros-texto .section-title {
-    color: #f39c12; /* Oro Inca */
+/* --- ESTILOS PARA TÍTULO DE SECCIÓN DE DOS LÍNEAS --- */
+
+/* Estilo para el título principal (ej. "Literatura") */
+.section-title {
+    /* Mantenemos los estilos que ya tenía: centrado, tamaño, etc. */
+    /* Nos aseguramos de que el color principal sea el azul oscuro */
+    color: #2c3e50; /* Medianoche Andino */
+}
+
+/* Estilo para el nuevo subtítulo (ej. "(Voces en papel)") */
+.section-title .section-subtitle {
+    display: block; /* <-- ¡La magia para la nueva línea! */
+    font-family: 'Lato', sans-serif; /* Usamos la fuente del cuerpo para contraste */
+    font-size: 1.3rem; /* Tamaño más pequeño que el título principal */
+    font-weight: 400; /* Letra normal, no negrita */
+    color: #e74c3c; /* Arcilla Roja, un color que destaca sin desentonar */
+    margin-top: 0.3rem; /* Pequeño espacio para separarlo del título */
+    line-height: 1.2; /* Ajustamos la altura de línea */
 }
