@@ -403,6 +403,8 @@ h1, h2, h3 {
 }
 
 /* Clase para ocultar los libros que no coinciden con el filtro */
+/* REGLA DEFINITIVA PARA OCULTAR: Se aplica a las secciones Y a las tarjetas */
+.book-section.hidden,
 .book-card.hidden {
     display: none;
 }
