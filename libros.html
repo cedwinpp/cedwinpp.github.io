@@ -7,6 +7,9 @@
     <title>Mis Obras - Ciro Edwin Portocarrero Pimentel</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+
+    <!-- LÍNEA AÑADIDA: CSS para la galería de zoom -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.css">
 </head>
 <body>
 
@@ -29,21 +32,22 @@
         <!-- SECCIÓN DE LITERATURA -->
         <section id="literatura" class="reveal">
             <h2 class="section-title">Literatura: Voces en Papel</h2>
-            <div class="book-grid">
+            <!-- CAMBIO AQUÍ: Añadida la clase "gallery" -->
+            <div class="book-grid gallery">
                 <!-- Tarjeta de Libro 1 (Ejemplo) -->
                 <div class="book-card">
-                    <!-- Coloca la imagen de la portada en la carpeta /images -->
-                    <img src="images/portada_sombra_suenos2.jpg" alt="Portada de Una sombra sobre los sueños">
+                    <!-- CAMBIO AQUÍ: La imagen ahora está dentro de un enlace <a> -->
+                    <a href="images/portada_sombra_suenos.jpg" title="Ver portada de Una sombra sobre los sueños">
+                        <img src="images/portada_sombra_suenos.jpg" alt="Portada de Una sombra sobre los sueños">
+                    </a>
                     <h3 class="book-title">Una sombra sobre los sueños</h3>
                     <p class="book-description">
-                        <!-- Añade aquí la sinopsis corta del libro -->
-                        Es un viaje literario al corazón de los Andes, donde la infancia, el misterio y la memoria se entrelazan en relatos cargados de simbolismo. A través de una prosa melancólica y evocadora, Ciro Edwin Portocarrero retrata un pueblo andino donde cada montaña guarda secretos y cada silencio revela una historia. Una obra que celebra la identidad, el misticismo y el amor ancestral.
+                        Una historia que se adentra en los misterios del alma, explorando los límites entre la realidad y la fantasía en un viaje inolvidable.
                     </p>
-                    <!-- Cambia '#' por el enlace real de Amazon -->
                     <a href="#" class="btn-amazon" target="_blank">Ver en Amazon</a>
                 </div>
 
-                <!-- Repite este bloque <div class="book-card">...</div> para cada libro de literatura -->
+                <!-- Para añadir más libros, copia y pega la tarjeta de arriba y modifica los datos -->
 
             </div>
         </section>
@@ -51,20 +55,22 @@
         <!-- SECCIÓN DE LIBROS DE TEXTO -->
         <section id="libros-texto" class="reveal">
             <h2 class="section-title">Libros de Texto</h2>
-            <div class="book-grid">
+            <!-- CAMBIO AQUÍ: Añadida la clase "gallery" -->
+            <div class="book-grid gallery">
                 <!-- Tarjeta de Libro de Texto 1 (Ejemplo) -->
                 <div class="book-card">
-                    <!-- Coloca la imagen de la portada en la carpeta /images -->
-                    <img src="images/portada_libro_texto_ejemplo.jpg" alt="Portada de Libro de Texto">
+                    <!-- CAMBIO AQUÍ: La imagen ahora está dentro de un enlace <a> -->
+                    <a href="images/portada_libro_texto_ejemplo.jpg" title="Ver portada de Título del Libro de Texto">
+                         <img src="images/portada_libro_texto_ejemplo.jpg" alt="Portada de Libro de Texto">
+                    </a>
                     <h3 class="book-title">Título del Libro de Texto</h3>
                     <p class="book-description">
                         Descripción concisa del contenido y el público objetivo del libro de texto.
                     </p>
-                     <!-- Cambia '#' por el enlace real de Amazon -->
                     <a href="#" class="btn-amazon" target="_blank">Ver en Amazon</a>
                 </div>
                 
-                <!-- Repite este bloque para cada libro de texto -->
+                 <!-- Para añadir más libros, copia y pega la tarjeta de arriba y modifica los datos -->
 
             </div>
         </section>
@@ -74,6 +80,8 @@
         <p>© 2025 Ciro Edwin Portocarrero Pimentel. Todos los derechos reservados.</p>
     </footer>
 
+    <!-- LÍNEA AÑADIDA: JS para la galería de zoom (debe ir antes que main.js) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.js" async></script>
     <script src="js/main.js"></script>
 </body>
 </html>
