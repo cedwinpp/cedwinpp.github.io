@@ -406,3 +406,8 @@ h1, h2, h3 {
 .book-card.hidden {
     display: none;
 }
+/* MEJORA: Cambia el color de los subtítulos en la página de libros */
+#literatura .section-title,
+#libros-texto .section-title {
+    color: #f39c12; /* Oro Inca */
+}
