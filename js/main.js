@@ -16,6 +16,14 @@ function reveal() {
 }
 
 window.addEventListener("scroll", reveal);
-
-// Llama a la función al cargar para mostrar los elementos ya visibles
 reveal();
+
+
+// CÓDIGO AÑADIDO: Activa la librería de zoom (baguetteBox)
+window.addEventListener('load', function() {
+  // Buscamos si existe al menos un elemento con la clase .gallery en la página
+  if(document.querySelector('.gallery')){
+    // Si existe, activamos la librería en todos los elementos con esa clase
+    baguetteBox.run('.gallery');
+  }
+});
