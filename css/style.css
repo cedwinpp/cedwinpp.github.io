@@ -221,7 +221,7 @@ h1, h2, h3 {
 }
 
 .book-card img {
-  
+   height: 60%;
     margin-bottom: 1rem;
 }
 
