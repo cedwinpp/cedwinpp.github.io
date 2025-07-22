@@ -362,3 +362,13 @@ h1, h2, h3 {
         position: relative;
     }
 }
+/* MEJORA: Cambia el cursor al pasar sobre las imágenes de los libros para indicar que son clicables */
+.book-card a img {
+    cursor: zoom-in;
+    transition: transform 0.3s ease;
+}
+
+/* MEJORA OPCIONAL: Pequeño efecto de crecimiento al pasar el ratón */
+.book-card a img:hover {
+    transform: scale(1.03);
+}
