@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Galería de fotos de presentaciones, viajes y eventos de Ciro Edwin Portocarrero Pimentel.">
+    <title>Galería - Ciro Edwin Portocarrero Pimentel</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
+    <!-- El mismo CSS para el efecto de zoom -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.css">
+</head>
+<body>
+
+    <header class="page-header">
+        <nav class="main-nav">
+            <div class="logo">CEP</div>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="libros.html">Libros</a></li>
+                <li><a href="blog.html">Blog</a></li>
+                <li><a href="galeria.html">Galería</a></li> <!-- Enlace a esta misma página -->
+                <li><a href="contacto.html">Contacto</a></li>
+            </ul>
+        </nav>
+        <div class="header-title">
+            <h1>Galería</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        <p class="section-intro" style="text-align: center; max-width: 700px; margin: 0 auto 3rem auto;">
+            Un vistazo a algunos de los momentos compartidos en presentaciones, ferias del libro y viajes que han inspirado mis historias.
+        </p>
+
+        <!-- La clase "gallery" activa el efecto de zoom -->
+        <div class="photo-grid gallery">
+            
+            <!-- Foto 1 (Ejemplo) -->
+            <div class="photo-item">
+                <!-- El enlace <a> apunta a la imagen que se mostrará en grande -->
+                <a href="images/galeria_ejemplo_1.jpg" data-caption="Presentación del libro en la feria local.">
+                    <!-- La imagen <img> es la miniatura que se ve en la cuadrícula -->
+                    <img src="images/galeria_ejemplo_1.jpg" alt="Foto de una presentación de libro">
+                    <div class="photo-caption">Presentación del libro</div>
+                </a>
+            </div>
+
+            <!-- Foto 2 (Ejemplo) -->
+            <div class="photo-item">
+                <a href="images/galeria_ejemplo_2.jpg" data-caption="Conversando con lectores tras el evento.">
+                    <img src="images/galeria_ejemplo_2.jpg" alt="Foto conversando con lectores">
+                    <div class="photo-caption">Conversando con lectores</div>
+                </a>
+            </div>
+
+            <!-- Foto 3 (Ejemplo) -->
+            <div class="photo-item">
+                <a href="images/galeria_ejemplo_3.jpg" data-caption="Paisaje andino que inspiró 'Una sombra sobre los sueños'.">
+                    <img src="images/galeria_ejemplo_3.jpg" alt="Foto de un paisaje andino">
+                    <div class="photo-caption">Inspiración andina</div>
+                </a>
+            </div>
+
+            <!-- Foto 4 (Ejemplo) -->
+            <div class="photo-item">
+                <a href="images/galeria_ejemplo_4.jpg" data-caption="Firma de libros.">
+                    <img src="images/galeria_ejemplo_4.jpg" alt="Foto firmando libros">
+                    <div class="photo-caption">Firma de libros</div>
+                </a>
+            </div>
+
+            <!-- Para añadir más fotos, copia y pega un bloque <div class="photo-item">...</div> -->
+
+        </div>
+    </main>
+
+    <footer class="main-footer">
+        <p>© 2025 Ciro Edwin Portocarrero Pimentel. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- El mismo JS para el efecto de zoom -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/baguettebox.js/1.11.1/baguetteBox.min.js" async></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
