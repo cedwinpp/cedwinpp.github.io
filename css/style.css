@@ -50,7 +50,7 @@ h1, h2, h3 {
 }
 
 
-/* Navegación */
+/* --- NAVEGACIÓN (SECCIÓN CORREGIDA Y UNIFICADA) --- */
 .main-nav {
     display: flex;
     justify-content: space-between;
@@ -74,6 +74,36 @@ h1, h2, h3 {
     list-style: none;
     display: flex;
 }
+
+/* Regla Única y Corregida para los enlaces del menú */
+.main-nav ul li a {
+    position: relative; /* Para la animación */
+    text-decoration: none;
+    color: #fff;
+    /* CORRECCIÓN FINAL: Padding correcto para el espaciado */
+    padding: 0.75rem 1rem;
+}
+
+/* Efecto de línea animada (ahora separado, como debe ser) */
+.main-nav ul li a::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background-color: #f39c12; /* Color Oro Inca */
+    bottom: 0;
+    left: 0;
+    transform: scaleX(0); /* Empieza sin ancho (invisible) */
+    transform-origin: bottom right;
+    transition: transform 0.3s ease-out;
+}
+
+.main-nav ul li a:hover::after {
+    transform: scaleX(1); /* Se expande al 100% del ancho */
+    transform-origin: bottom left;
+}
+/* --- FIN DE LA SECCIÓN DE NAVEGACIÓN --- */
+
 
 /* Sección Hero (Inicio) */
 .hero {
@@ -197,7 +227,6 @@ h1, h2, h3 {
 /* --- ESTILOS CORREGIDOS PARA LA PÁGINA DE LIBROS --- */
 .book-grid {
     display: grid;
-    /* CAMBIO: Columnas más compactas para mejor visualización */
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
 }
@@ -210,7 +239,6 @@ h1, h2, h3 {
     text-align: center;
     padding: 1.5rem;
     transition: transform 0.3s, box-shadow 0.3s;
-    /* Añadimos flexbox para mejor alineación vertical del contenido */
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -223,9 +251,7 @@ h1, h2, h3 {
 
 .book-card img {
     width: 100%;
-    /* CAMBIO: Altura fija para evitar el alargamiento */
     height: 380px; 
-    /* CAMBIO: La imagen se recorta para rellenar el espacio sin deformarse */
     object-fit: cover; 
     margin-bottom: 1rem;
 }
@@ -247,7 +273,7 @@ h1, h2, h3 {
 .book-description {
     font-size: 0.9rem;
     padding: 0 1rem;
-    flex-grow: 1; /* Permite que la descripción ocupe el espacio sobrante */
+    flex-grow: 1;
 }
 
 /* --- FIN DE ESTILOS CORREGIDOS --- */
@@ -513,31 +539,6 @@ h1, h2, h3 {
 
 
 /* Mejoras de Interfaz y Animaciones */
-.main-nav ul li a {
-    position: relative;
-    text-decoration: none;
-    color: #fff;
-    padding-bottom: 5px;
-}
-
-.main-nav ul li a::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 2px;
-    background-color: #f39c12;
-    bottom: 0;
-    left: 0;
-    transform: scaleX(0);
-    transform-origin: bottom right;
-    transition: transform 0.3s ease-out;
-}
-
-.main-nav ul li a:hover::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-}
-
 #scrollTopBtn {
     display: none;
     position: fixed;
