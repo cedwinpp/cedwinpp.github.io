@@ -18,7 +18,6 @@ body {
     color: #34495e;
     line-height: 1.7;
     background-color: #ecf0f1;
-    /* Fondo con textura de papel sutil */
     background-image: url('https://www.transparenttextures.com/patterns/paper.png');
 }
 
@@ -76,22 +75,9 @@ h1, h2, h3 {
     display: flex;
 }
 
-.main-nav ul li a {
-    color: #fff;
-    text-decoration: none;
-    padding: 0.5rem 1rem;
-    transition: color 0.3s ease;
-}
-
-.main-nav ul li a:hover {
-    color: #f39c12;
-}
-
 /* Sección Hero (Inicio) */
-/* Sección Hero (Inicio) - VERSIÓN MEJORADA */
 .hero {
     height: 100vh;
-    /* CAMBIO: Reintroducimos la imagen con un degradado oscuro encima */
     background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/hero-background1.jpg') no-repeat center center/cover;
     color: #fff;
     display: flex;
@@ -100,30 +86,28 @@ h1, h2, h3 {
     align-items: center;
     text-align: center;
     position: relative;
-    padding: 0 2rem; /* Añadimos padding para que el texto no toque los bordes en pantallas pequeñas */
+    padding: 0 2rem;
 }
-
 
 .hero-content {
     max-width: 800px;
 }
 
-/* Estilos para el bloque del nombre del autor */
 .author-name-block {
     margin-bottom: 1.5rem;
 }
 
 .author-name-main {
-    font-size: 2.5rem; /* Ligeramente más pequeño */
-    font-weight: 400; /* Menos peso, más elegante */
+    font-size: 2.5rem;
+    font-weight: 400;
     letter-spacing: 2px;
     color: #fff;
 }
 
 .author-name-sub {
-    font-size: 4rem; /* El apellido más grande y protagonista */
+    font-size: 4rem;
     font-weight: 700;
-    letter-spacing: 4px; /* Un poco más de aire entre letras */
+    letter-spacing: 4px;
     line-height: 1.1;
     color: #fff;
 }
@@ -131,9 +115,9 @@ h1, h2, h3 {
 .author-tagline {
     font-size: 1.3rem;
     font-weight: 300;
-    max-width: 700px; /* Evita que el tagline sea demasiado ancho */
+    max-width: 700px;
     margin: 0 auto;
-    color: #ecf0f1; /* Un blanco ligeramente menos intenso para el tagline */
+    color: #ecf0f1;
     line-height: 1.6;
 }
 
@@ -197,11 +181,6 @@ h1, h2, h3 {
     text-decoration: none;
     border-radius: 5px;
     font-weight: 700;
-    transition: background-color 0.3s, transform 0.3s;
-}
-.btn:hover {
-    background: #c0392b;
-    transform: translateY(-3px);
 }
 
 .btn-amazon {
@@ -213,17 +192,13 @@ h1, h2, h3 {
     border-radius: 5px;
     font-weight: 700;
     margin-top: 1rem;
-    transition: background-color 0.3s, transform 0.3s;
-}
-.btn-amazon:hover {
-    background: #e67e22;
-    transform: translateY(-3px);
 }
 
-/* Página de Libros */
+/* --- ESTILOS CORREGIDOS PARA LA PÁGINA DE LIBROS --- */
 .book-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    /* CAMBIO: Columnas más compactas para mejor visualización */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 2rem;
 }
 
@@ -235,6 +210,10 @@ h1, h2, h3 {
     text-align: center;
     padding: 1.5rem;
     transition: transform 0.3s, box-shadow 0.3s;
+    /* Añadimos flexbox para mejor alineación vertical del contenido */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .book-card:hover {
@@ -243,8 +222,21 @@ h1, h2, h3 {
 }
 
 .book-card img {
-   height: auto;
+    width: 100%;
+    /* CAMBIO: Altura fija para evitar el alargamiento */
+    height: 380px; 
+    /* CAMBIO: La imagen se recorta para rellenar el espacio sin deformarse */
+    object-fit: cover; 
     margin-bottom: 1rem;
+}
+
+.book-card a img {
+    cursor: zoom-in;
+    transition: transform 0.3s ease;
+}
+
+.book-card a img:hover {
+    transform: scale(1.03);
 }
 
 .book-title {
@@ -255,7 +247,10 @@ h1, h2, h3 {
 .book-description {
     font-size: 0.9rem;
     padding: 0 1rem;
+    flex-grow: 1; /* Permite que la descripción ocupe el espacio sobrante */
 }
+
+/* --- FIN DE ESTILOS CORREGIDOS --- */
 
 
 /* Página de Blog */
@@ -364,7 +359,7 @@ h1, h2, h3 {
 
 /* Media Queries para Responsividad */
 @media(max-width: 768px) {
-    .author-name {
+    .author-name-sub {
         font-size: 2.5rem;
     }
     .bio-content {
@@ -384,17 +379,8 @@ h1, h2, h3 {
         position: relative;
     }
 }
-/* MEJORA: Cambia el cursor al pasar sobre las imágenes de los libros para indicar que son clicables */
-.book-card a img {
-    cursor: zoom-in;
-    transition: transform 0.3s ease;
-}
 
-/* MEJORA OPCIONAL: Pequeño efecto de crecimiento al pasar el ratón */
-.book-card a img:hover {
-    transform: scale(1.03);
-}
-/* --- ESTILOS PARA LOS BOTONES DE FILTRO --- */
+/* Estilos para Filtros, Títulos y Galería */
 .filter-buttons {
     text-align: center;
     margin-bottom: 2rem;
@@ -402,87 +388,67 @@ h1, h2, h3 {
 
 .filter-btn {
     background: transparent;
-    border: 2px solid #2c3e50; /* Medianoche Andino */
+    border: 2px solid #2c3e50;
     color: #2c3e50;
     padding: 0.7rem 1.5rem;
     margin: 0 0.5rem;
     border-radius: 5px;
     cursor: pointer;
     font-weight: 700;
-    transition: all 0.3s ease;
 }
 
-.filter-btn:hover {
-    background: #2c3e50;
-    color: #fff;
-}
-
-/* Estilo para el botón que está activo */
 .filter-btn.active {
-    background: #e74c3c; /* Arcilla Roja */
+    background: #e74c3c;
     border-color: #e74c3c;
     color: #fff;
 }
 
-/* Clase para ocultar los libros que no coinciden con el filtro */
-/* REGLA DEFINITIVA PARA OCULTAR: Se aplica a las secciones Y a las tarjetas */
 .book-section.hidden,
 .book-card.hidden {
     display: none;
 }
-/* --- ESTILOS PARA TÍTULO DE SECCIÓN DE DOS LÍNEAS --- */
 
-/* Estilo para el título principal (ej. "Literatura") */
-.section-title {
-    /* Mantenemos los estilos que ya tenía: centrado, tamaño, etc. */
-    /* Nos aseguramos de que el color principal sea el azul oscuro */
-    color: #2c3e50; /* Medianoche Andino */
-}
-
-/* Estilo para el nuevo subtítulo (ej. "(Voces en papel)") */
 .section-title .section-subtitle {
-    display: block; /* <-- ¡La magia para la nueva línea! */
-    font-family: 'Lato', sans-serif; /* Usamos la fuente del cuerpo para contraste */
-    font-size: 1.3rem; /* Tamaño más pequeño que el título principal */
-    font-weight: 400; /* Letra normal, no negrita */
-    color: #e74c3c; /* Arcilla Roja, un color que destaca sin desentonar */
-    margin-top: 0.3rem; /* Pequeño espacio para separarlo del título */
-    line-height: 1.2; /* Ajustamos la altura de línea */
+    display: block;
+    font-family: 'Lato', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 400;
+    color: #e74c3c;
+    margin-top: 0.3rem;
+    line-height: 1.2;
 }
-/* --- ESTILOS PARA LA PÁGINA DE GALERÍA --- */
+
 .photo-grid {
     display: grid;
-    /* Crea una cuadrícula responsive con columnas de al menos 300px */
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 1rem;
 }
 
 .photo-item {
-    position: relative; /* Necesario para posicionar el pie de foto */
-    overflow: hidden; /* Oculta lo que se salga del contenedor */
+    position: relative;
+    overflow: hidden;
     border-radius: 8px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     cursor: zoom-in;
 }
 
 .photo-item a {
-    display: block; /* Asegura que el enlace ocupe todo el espacio */
+    display: block;
     height: 100%;
 }
 
 .photo-item img {
     width: 100%;
-    height: 250px; /* Damos una altura fija a todas las miniaturas */
-    object-fit: cover; /* Recorta la imagen para que rellene el espacio sin deformarse */
+    height: 250px;
+    object-fit: cover;
     display: block;
     transition: transform 0.4s ease;
 }
 
 .photo-item:hover img {
-    transform: scale(1.1); /* Efecto de zoom sutil al pasar el ratón */
+    transform: scale(1.1);
 }
 
-/* Estilo para el pie de foto que aparece al pasar el ratón */
 .photo-caption {
     position: absolute;
     bottom: 0;
@@ -490,71 +456,68 @@ h1, h2, h3 {
     width: 100%;
     background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
     color: #fff;
-    padding: 2rem 1rem 1rem; /* Más espacio arriba para el degradado */
+    padding: 2rem 1rem 1rem;
     text-align: left;
     font-weight: 700;
-    transform: translateY(100%); /* Empieza oculto abajo */
+    transform: translateY(100%);
     transition: transform 0.4s ease;
 }
-/* --- MEJORAS DE DISEÑO PARA PÁGINAS DE ARTÍCULOS DEL BLOG --- */
-
-/* Contenedor principal del artículo */
-.blog-post-full {
-    max-width: 720px; /* Limita el ancho del contenido para mejor legibilidad */
-    margin: 2rem auto;  /* Centra el contenedor del artículo en la página */
+.photo-item:hover .photo-caption {
+    transform: translateY(0);
 }
 
-/* Título principal del artículo */
+
+/* Mejoras de Diseño para Blog */
+.blog-post-full {
+    max-width: 720px;
+    margin: 2rem auto;
+}
+
 .post-full-title {
     font-size: 3rem;
     line-height: 1.2;
     margin-bottom: 0.5rem;
 }
 
-/* Contenido del artículo */
 .post-full-content {
-    font-family: 'Merriweather', serif; /* Cambiamos a una fuente serif para un look más literario */
-    font-size: 1.1rem; /* Aumentamos ligeramente el tamaño para más comodidad */
-    line-height: 1.8; /* Más espacio entre líneas mejora la lectura */
-    color: #34495e; /* Un gris oscuro, más suave que el negro puro */
+    font-family: 'Merriweather', serif;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #34495e;
 }
 
 .post-full-content p {
-    margin-bottom: 1.5rem; /* Espacio entre párrafos */
+    margin-bottom: 1.5rem;
 }
 
 .post-full-content h3 {
     font-size: 1.8rem;
     margin-top: 2.5rem;
     margin-bottom: 1rem;
-    color: #2c3e50; /* Medianoche Andino */
+    color: #2c3e50;
 }
 
-/* Estilo para las citas destacadas (Blockquotes) */
 .post-full-content blockquote {
-    border-left: 4px solid #e74c3c; /* Barra lateral en color Arcilla Roja */
+    border-left: 4px solid #e74c3c;
     margin: 2rem 0;
     padding: 1rem 1.5rem;
-    background-color: #f8f9fa; /* Un fondo muy sutil */
+    background-color: #f8f9fa;
     font-style: italic;
     font-size: 1.2rem;
     color: #566573;
 }
 
 .post-full-content blockquote p {
-    margin-bottom: 0; /* Quitamos el margen del párrafo dentro de la cita */
+    margin-bottom: 0;
 }
-.photo-item:hover .photo-caption {
-    transform: translateY(0); /* Lo muestra al pasar el ratón */
-}
-/* --- MEJORAS DE INTERFAZ Y ANIMACIONES SUTILES --- */
 
-/* 1. Efecto de línea animada para el menú de navegación */
+
+/* Mejoras de Interfaz y Animaciones */
 .main-nav ul li a {
-    position: relative; /* Necesario para el pseudoelemento ::after */
+    position: relative;
     text-decoration: none;
-    color: #fff; /* Aseguramos que el color se mantenga */
-    padding-bottom: 5px; /* Damos espacio para la línea */
+    color: #fff;
+    padding-bottom: 5px;
 }
 
 .main-nav ul li a::after {
@@ -562,50 +525,48 @@ h1, h2, h3 {
     position: absolute;
     width: 100%;
     height: 2px;
-    background-color: #f39c12; /* Color Oro Inca */
+    background-color: #f39c12;
     bottom: 0;
     left: 0;
-    transform: scaleX(0); /* Empieza sin ancho (invisible) */
+    transform: scaleX(0);
     transform-origin: bottom right;
     transition: transform 0.3s ease-out;
 }
 
 .main-nav ul li a:hover::after {
-    transform: scaleX(1); /* Se expande al 100% del ancho */
+    transform: scaleX(1);
     transform-origin: bottom left;
 }
 
-/* 2. Estilo para el botón de "Volver Arriba" */
 #scrollTopBtn {
-    display: none; /* Oculto por defecto */
-    position: fixed; /* Se queda fijo en la pantalla */
+    display: none;
+    position: fixed;
     bottom: 20px;
     right: 30px;
     z-index: 99;
     border: none;
     outline: none;
-    background-color: #e74c3c; /* Arcilla Roja */
+    background-color: #e74c3c;
     color: white;
     cursor: pointer;
     padding: 15px;
-    border-radius: 50%; /* Lo hacemos redondo */
+    border-radius: 50%;
     font-size: 18px;
     box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     transition: background-color 0.3s, opacity 0.5s;
 }
 
 #scrollTopBtn:hover {
-    background-color: #c0392b; /* Un rojo más oscuro */
+    background-color: #c0392b;
 }
 
-/* 3. Aseguramos que todos los botones tengan el efecto de levitación */
 .btn, .btn-amazon, .filter-btn {
     transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
 .btn:hover, .btn-amazon:hover, .filter-btn:hover {
-    transform: translateY(-3px); /* Efecto de levitación */
+    transform: translateY(-3px);
 }
-/* Estilo para el indicador de scroll hacia abajo */
+
 .scroll-down-indicator {
     position: absolute;
     bottom: 30px;
@@ -628,7 +589,6 @@ h1, h2, h3 {
     animation: scroll-anim 2s infinite;
 }
 
-/* Animación para el indicador de scroll */
 @keyframes scroll-anim {
     0% {
         opacity: 1;
