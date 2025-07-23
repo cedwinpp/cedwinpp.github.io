@@ -88,9 +88,11 @@ h1, h2, h3 {
 }
 
 /* Sección Hero (Inicio) */
+/* Sección Hero (Inicio) - VERSIÓN MEJORADA */
 .hero {
     height: 100vh;
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://source.unsplash.com/1600x900/?mountains,peru') no-repeat center center/cover;
+    /* CAMBIO: Reintroducimos la imagen con un degradado oscuro encima */
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://source.unsplash.com/1600x900/?mountains,peru,andes') no-repeat center center/cover;
     color: #fff;
     display: flex;
     flex-direction: column;
@@ -98,21 +100,41 @@ h1, h2, h3 {
     align-items: center;
     text-align: center;
     position: relative;
+    padding: 0 2rem; /* Añadimos padding para que el texto no toque los bordes en pantallas pequeñas */
 }
+
 
 .hero-content {
     max-width: 800px;
 }
 
-.author-name {
-    font-size: 3.5rem;
-    margin-bottom: 0.5rem;
+/* Estilos para el bloque del nombre del autor */
+.author-name-block {
+    margin-bottom: 1.5rem;
+}
+
+.author-name-main {
+    font-size: 2.5rem; /* Ligeramente más pequeño */
+    font-weight: 400; /* Menos peso, más elegante */
+    letter-spacing: 2px;
+    color: #fff;
+}
+
+.author-name-sub {
+    font-size: 4rem; /* El apellido más grande y protagonista */
+    font-weight: 700;
+    letter-spacing: 4px; /* Un poco más de aire entre letras */
+    line-height: 1.1;
     color: #fff;
 }
 
 .author-tagline {
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     font-weight: 300;
+    max-width: 700px; /* Evita que el tagline sea demasiado ancho */
+    margin: 0 auto;
+    color: #ecf0f1; /* Un blanco ligeramente menos intenso para el tagline */
+    line-height: 1.6;
 }
 
 /* Header de Páginas Interiores */
@@ -582,4 +604,42 @@ h1, h2, h3 {
 }
 .btn:hover, .btn-amazon:hover, .filter-btn:hover {
     transform: translateY(-3px); /* Efecto de levitación */
+}
+/* Estilo para el indicador de scroll hacia abajo */
+.scroll-down-indicator {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 30px;
+    height: 50px;
+    border: 2px solid white;
+    border-radius: 50px;
+}
+.scroll-down-indicator span {
+    position: absolute;
+    top: 10px;
+    left: 50%;
+    width: 4px;
+    height: 10px;
+    background: white;
+    border-radius: 2px;
+    transform: translateX(-50%);
+    animation: scroll-anim 2s infinite;
+}
+
+/* Animación para el indicador de scroll */
+@keyframes scroll-anim {
+    0% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translateX(-50%) translateY(15px);
+    }
+    100% {
+        opacity: 0;
+        transform: translateX(-50%) translateY(15px);
+    }
 }
