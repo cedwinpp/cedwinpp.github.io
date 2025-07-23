@@ -48,3 +48,29 @@ if (document.querySelector('.filter-buttons')) {
         });
     });
 }
+// --- LÓGICA PARA EL BOTÓN DE "VOLVER ARRIBA" ---
+
+// Obtenemos el botón del DOM
+let scrollTopBtn = document.createElement("button");
+scrollTopBtn.innerHTML = "↑";
+scrollTopBtn.setAttribute("id", "scrollTopBtn");
+scrollTopBtn.setAttribute("title", "Volver arriba");
+document.body.appendChild(scrollTopBtn);
+
+// Cuando el usuario hace scroll hacia abajo 20px desde el inicio, muestra el botón
+window.onscroll = function() {
+    scrollFunction();
+};
+
+function scrollFunction() {
+    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+        scrollTopBtn.style.display = "block";
+    } else {
+        scrollTopBtn.style.display = "none";
+    }
+}
+
+// Cuando el usuario hace clic en el botón, vuelve al inicio del documento suavemente
+scrollTopBtn.addEventListener("click", function() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+});
