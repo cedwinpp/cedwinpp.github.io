@@ -474,7 +474,54 @@ h1, h2, h3 {
     transform: translateY(100%); /* Empieza oculto abajo */
     transition: transform 0.4s ease;
 }
+/* --- MEJORAS DE DISEÑO PARA PÁGINAS DE ARTÍCULOS DEL BLOG --- */
 
+/* Contenedor principal del artículo */
+.blog-post-full {
+    max-width: 720px; /* Limita el ancho del contenido para mejor legibilidad */
+    margin: 2rem auto;  /* Centra el contenedor del artículo en la página */
+}
+
+/* Título principal del artículo */
+.post-full-title {
+    font-size: 3rem;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+}
+
+/* Contenido del artículo */
+.post-full-content {
+    font-family: 'Merriweather', serif; /* Cambiamos a una fuente serif para un look más literario */
+    font-size: 1.1rem; /* Aumentamos ligeramente el tamaño para más comodidad */
+    line-height: 1.8; /* Más espacio entre líneas mejora la lectura */
+    color: #34495e; /* Un gris oscuro, más suave que el negro puro */
+}
+
+.post-full-content p {
+    margin-bottom: 1.5rem; /* Espacio entre párrafos */
+}
+
+.post-full-content h3 {
+    font-size: 1.8rem;
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    color: #2c3e50; /* Medianoche Andino */
+}
+
+/* Estilo para las citas destacadas (Blockquotes) */
+.post-full-content blockquote {
+    border-left: 4px solid #e74c3c; /* Barra lateral en color Arcilla Roja */
+    margin: 2rem 0;
+    padding: 1rem 1.5rem;
+    background-color: #f8f9fa; /* Un fondo muy sutil */
+    font-style: italic;
+    font-size: 1.2rem;
+    color: #566573;
+}
+
+.post-full-content blockquote p {
+    margin-bottom: 0; /* Quitamos el margen del párrafo dentro de la cita */
+}
 .photo-item:hover .photo-caption {
     transform: translateY(0); /* Lo muestra al pasar el ratón */
 }
