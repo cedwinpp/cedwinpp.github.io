@@ -92,7 +92,7 @@ h1, h2, h3 {
 .hero {
     height: 100vh;
     /* CAMBIO: Reintroducimos la imagen con un degradado oscuro encima */
-    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://source.unsplash.com/1600x900/?mountains,peru,andes') no-repeat center center/cover;
+    background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('../images/hero-background1.jpg') no-repeat center center/cover;
     color: #fff;
     display: flex;
     flex-direction: column;
