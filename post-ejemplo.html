@@ -1,56 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
-    <head>
+<head>
+    <!-- ... (toda tu sección <head> está perfecta, no la toques) ... -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-    <!-- SEO para ESTE artículo específico -->
-    <!-- CAMBIAR ESTO: El título debe ser el del artículo -->
-    <title>Título de la Primera Entrada del Blog - Ciro E. Portocarrero Pimentel</title>
-    <!-- CAMBIAR ESTO: La descripción debe ser un resumen del artículo (155 caracteres) -->
-    <meta name="description" content="Un resumen conciso y atractivo de lo que trata este artículo del blog.">
-    <!-- CAMBIAR ESTO: Palabras clave relevantes para este post -->
-    <meta name="keywords" content="palabra clave 1, palabra clave 2, proceso creativo, inspiración">
-
-    <!-- Open Graph (para redes sociales) -->
-    <!-- CAMBIAR ESTO: El título del artículo -->
-    <meta property="og:title" content="Título de la Primera Entrada del Blog">
-    <!-- CAMBIAR ESTO: Un resumen corto y atractivo -->
-    <meta property="og:description" content="Un resumen conciso y atractivo de lo que trata este artículo del blog.">
-    <!-- CAMBIAR ESTO: La URL completa a una imagen relevante para el artículo -->
-    <meta property="og:image" content="https://cedwinpp.github.io/images/imagen_para_el_blog.jpg">
-    <!-- CAMBIAR ESTO: La URL completa de este artículo -->
-    <meta property="og:url" content="https://cedwinpp.github.io/post-ejemplo.html">
-    <!-- Esto se queda igual -->
-    <meta property="og:type" content="article"> 
-    <meta property="og:locale" content="es_ES">
-
-    <!-- Twitter Card Tags -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Título de la Primera Entrada del Blog">
-    <meta name="twitter:description" content="Un resumen conciso y atractivo del artículo.">
-    <meta name="twitter:image" content="https://cedwinpp.github.io/images/imagen_para_el_blog.jpg">
-
-        <!-- ... Aquí termina la sección de Twitter Card Tags ... -->
-    <meta name="twitter:image" content="https://cedwinpp.github.io/images/edwin_2.png">
-
+    <meta name="description" content="Aquí va un resumen corto del contenido del artículo para los buscadores.">
+    <title>Título del Artículo - Blog de Ciro Edwin Portocarrero Pimentel</title>
+    <!-- ... (resto de tus etiquetas <head>) ... -->
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
     <!-- Favicon Code (Versión Definitiva con URLs Absolutas) -->
     <link rel="apple-touch-icon" sizes="180x180" href="https://cedwinpp.github.io/apple-touch-icon.png">
     <link rel="icon" type="image/png" sizes="32x32" href="https://cedwinpp.github.io/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="https://cedwinpp.github.io/favicon-16x16.png">
     <link rel="manifest" href="https://cedwinpp.github.io/site.webmanifest">
     <link rel="shortcut icon" href="https://cedwinpp.github.io/favicon.ico">
-
-    <!-- Hojas de Estilo y Fuentes -->
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=lato:wght@400;700&family=merriweather:wght@700&display=swap" rel="stylesheet">
 </head>
-    
-    <!-- Hojas de Estilo y Fuentes -->
-    <link rel="stylesheet" href="css/style.css">
-    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Merriweather:wght@700&display=swap" rel="stylesheet">
-</head>
-
 <body>
 
     <header class="page-header">
@@ -64,7 +29,6 @@
                 <li><a href="contacto.html">Contacto</a></li>
             </ul>
         </nav>
-        <!-- El título aquí puede ser el mismo del blog o el del artículo -->
         <div class="header-title">
             <h1>Mi Blog</h1>
         </div>
@@ -72,106 +36,36 @@
 
     <main class="container">
         <article class="blog-post-full">
-            <!-- Título del Artículo -->
             <h1 class="post-full-title">Título de la Primera Entrada del Blog</h1>
-            <!-- Fecha de Publicación -->
             <p class="blog-post-meta">Publicado el 22 de Julio, 2025</p>
+
+            <!-- Controles de Texto a Voz -->
+            <div id="tts-controls" class="tts-container">
+                <button id="tts-play" class="tts-btn" title="Leer en voz alta">▶️ Escuchar</button>
+                <button id="tts-pause" class="tts-btn" title="Pausar la lectura">⏸️ Pausar</button>
+                <button id="tts-stop" class="tts-btn" title="Detener la lectura">⏹️ Detener</button>
+            </div>
             
-            <!-- Contenido del Artículo -->
-            <!-- ... esta es la línea de la fecha que ya tienes ... -->
-<p class="blog-post-meta">Publicado el 22 de Julio, 2025</p>
-
-<!-- Pega el nuevo bloque de código AQUÍ -->
-<div id="tts-controls" class="tts-container">
-    <button id="tts-play" class="tts-btn" title="Leer en voz alta">▶️ Escuchar</button>
-    <button id="tts-pause" class="tts-btn" title="Pausar la lectura">⏸️ Pausar</button>
-    <button id="tts-stop" class="tts-btn" title="Detener la lectura">⏹️ Detener</button>
-</div>
-            
-<!-- Aquí empieza el div del contenido que ya tenías -->
-<div class="post-full-content">
-<!-- ... -->
-```3.  Guarda los cambios con **"Commit changes"**.
-
----
-
-### **Paso 2: Añadir los Estilos para los Botones (`css/style.css`)**
-
-Necesitamos que el panel de control se vea elegante y profesional.
-
-**Instrucciones:**
-1.  Ve a tu archivo `css/style.css` y edítalo (✏️).
-2.  Ve **al final de todo el archivo** y pega el siguiente bloque de código:
-
-```css
-/* --- ESTILOS PARA EL LECTOR DE TEXTO A VOZ (TTS) --- */
-
-.tts-container {
-    margin: 2rem 0;
-    padding: 1rem;
-    background-color: #f8f9fa;
-    border-radius: 8px;
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    border: 1px solid #e0e0e0;
-}
-
-.tts-btn {
-    font-family: 'Lato', sans-serif;
-    font-weight: 700;
-    font-size: 0.9rem;
-    padding: 0.7rem 1.2rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    background-color: #2c3e50; /* Medianoche Andino */
-    color: #fff;
-    transition: background-color 0.3s, transform 0.3s;
-}
-
-.tts-btn:hover {
-    background-color: #34495e;
-    transform: translateY(-2px);
-}
+            <!-- Contenido del Artículo (VERSIÓN LIMPIA) -->
             <div class="post-full-content">
                 <p>
-                    Este es el primer párrafo de tu artículo. Aquí puedes empezar a desarrollar tus ideas. Puedes usar etiquetas `<p>` para cada párrafo.
+                    Este es el primer párrafo de tu artículo. Aquí puedes empezar a desarrollar tus ideas. Puedes usar etiquetas <p> para cada párrafo.
                 </p>
                 <p>
                     Puedes añadir tantos párrafos como necesites. La estructura es muy simple. Es un buen lugar para compartir reflexiones sobre tu proceso creativo, analizar un tema de tus libros o anunciar una próxima firma o evento.
                 </p>
-                <blockquote>
-    <p>"Cada montaña guarda secretos y cada silencio revela una historia. Así es el alma de los Andes."</p>
-</blockquote>
-                <!-- También puedes añadir subtítulos dentro del artículo -->
+                
                 <h3>Un Subtítulo Dentro del Post</h3>
                 <p>
                     Y continuar con más texto debajo de los subtítulos para organizar mejor tus ideas.
                 </p>
                 
-                <!-- Y hasta imágenes -->
                 <img src="images/imagen_para_el_blog.jpg" alt="Descripción de la imagen" style="max-width:100%; height:auto; margin: 2rem 0;">
             </div>
         </article>
 
-        <!-- Aquí es donde iría la sección de comentarios en el futuro -->
         <section id="comment-section">
-            <script src="https://giscus.app/client.js"
-        data-repo="cedwinpp/cedwinpp"
-        data-repo-id="[UN_ID_QUE_SE_GENERA_SOLO]"
-        data-category="Comentarios del Blog"
-        data-category-id="[OTRO_ID_GENERADO]"
-        data-mapping="pathname"
-        data-strict="0"
-        data-reactions-enabled="1"
-        data-emit-metadata="0"
-        data-input-position="bottom"
-        data-theme="light"
-        data-lang="es"
-        crossorigin="anonymous"
-        async>
-    </script>
+            <!-- ... (Aquí va tu script de Giscus) ... -->
         </section>
 
     </main>
