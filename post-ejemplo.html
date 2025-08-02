@@ -78,6 +78,62 @@
             <p class="blog-post-meta">Publicado el 22 de Julio, 2025</p>
             
             <!-- Contenido del Artículo -->
+            <!-- ... esta es la línea de la fecha que ya tienes ... -->
+<p class="blog-post-meta">Publicado el 22 de Julio, 2025</p>
+
+<!-- Pega el nuevo bloque de código AQUÍ -->
+<div id="tts-controls" class="tts-container">
+    <button id="tts-play" class="tts-btn" title="Leer en voz alta">▶️ Escuchar</button>
+    <button id="tts-pause" class="tts-btn" title="Pausar la lectura">⏸️ Pausar</button>
+    <button id="tts-stop" class="tts-btn" title="Detener la lectura">⏹️ Detener</button>
+</div>
+            
+<!-- Aquí empieza el div del contenido que ya tenías -->
+<div class="post-full-content">
+<!-- ... -->
+```3.  Guarda los cambios con **"Commit changes"**.
+
+---
+
+### **Paso 2: Añadir los Estilos para los Botones (`css/style.css`)**
+
+Necesitamos que el panel de control se vea elegante y profesional.
+
+**Instrucciones:**
+1.  Ve a tu archivo `css/style.css` y edítalo (✏️).
+2.  Ve **al final de todo el archivo** y pega el siguiente bloque de código:
+
+```css
+/* --- ESTILOS PARA EL LECTOR DE TEXTO A VOZ (TTS) --- */
+
+.tts-container {
+    margin: 2rem 0;
+    padding: 1rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    border: 1px solid #e0e0e0;
+}
+
+.tts-btn {
+    font-family: 'Lato', sans-serif;
+    font-weight: 700;
+    font-size: 0.9rem;
+    padding: 0.7rem 1.2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: #2c3e50; /* Medianoche Andino */
+    color: #fff;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.tts-btn:hover {
+    background-color: #34495e;
+    transform: translateY(-2px);
+}
             <div class="post-full-content">
                 <p>
                     Este es el primer párrafo de tu artículo. Aquí puedes empezar a desarrollar tus ideas. Puedes usar etiquetas `<p>` para cada párrafo.
