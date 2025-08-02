@@ -74,3 +74,50 @@ function scrollFunction() {
 scrollTopBtn.addEventListener("click", function() {
     window.scrollTo({top: 0, behavior: 'smooth'});
 });
+// --- LÓGICA PARA EL LECTOR DE TEXTO A VOZ (TTS) ---
+
+// Solo ejecuta este código si encuentra los controles TTS en la página
+if (document.getElementById('tts-controls')) {
+    const playBtn = document.getElementById('tts-play');
+    const pauseBtn = document.getElementById('tts-pause');
+    const stopBtn = document.getElementById('tts-stop');
+    const articleContent = document.querySelector('.post-full-content');
+    
+    // Comprueba si el navegador soporta la Web Speech API
+    if ('speechSynthesis' in window) {
+        let utterance = new SpeechSynthesisUtterance();
+        utterance.lang = 'es-ES'; // Establece el idioma a español
+
+        playBtn.addEventListener('click', () => {
+            if (speechSynthesis.paused) {
+                speechSynthesis.resume(); // Si está en pausa, reanuda
+            } else if (!speechSynthesis.speaking) {
+                // Si no está hablando, empieza desde el principio
+                utterance.text = articleContent.textContent;
+                speechSynthesis.speak(utterance);
+            }
+        });
+
+        pauseBtn.addEventListener('click', () => {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.pause(); // Pausa la lectura si está hablando
+            }
+        });
+
+        stopBtn.addEventListener('click', () => {
+            if (speechSynthesis.speaking) {
+                speechSynthesis.cancel(); // Detiene y resetea la lectura
+            }
+        });
+
+        // Asegúrate de que si el usuario abandona la página, la lectura se detenga
+        window.addEventListener('beforeunload', () => {
+            speechSynthesis.cancel();
+        });
+
+    } else {
+        // Si el navegador no es compatible, oculta los controles
+        document.getElementById('tts-controls').style.display = 'none';
+        console.log('Tu navegador no soporta la API de Texto a Voz.');
+    }
+}
