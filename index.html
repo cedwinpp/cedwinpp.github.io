@@ -140,14 +140,20 @@
             <!-- ── DEDICATORIA 1: Para mi madre ── -->
             <div class="dedicatoria-card reveal">
                 <div class="dedicatoria-foto">
-                    <img src="https://res.cloudinary.com/dvq9k24bz/image/upload/v1772395236/7855d40a-827c-4a73-bfd5-f9fd653827ab.png" alt="Para mi madre">
+                    <img src="https://res.cloudinary.com/dvq9k24bz/image/upload/v1772395236/7855d40a-827c-4a73-bfd5-f9fd653827ab.png"
+                        alt="Para mi madre">
                     <!-- Sustituye URL_CLOUDINARY_FOTO_MADRE por tu URL de Cloudinary -->
                 </div>
                 <div class="dedicatoria-content">
                     <span class="dedicatoria-label">♥ Dedicado a</span>
                     <h3 class="dedicatoria-titulo">Mi Madre</h3>
                     <p class="dedicatoria-descripcion">
-                        Mirar las estrellas es, para mí, volver a ti. Es recordarte sentada sobre cueros en el umbral de nuestra casa en Antabamba, allí donde el aire es fino y el cielo parece dejarse tocar. No había frío, porque tu presencia era mi abrigo. Yo quería escribir promesas en el firmamento, pero tu Dios tuvo otros planes. Nunca entenderé la urgencia de arrancarte de nosotros, de dejarnos a siete hijos y a un esposo con el alma rota. Las estrellas no mienten, madre; aquella noche me anunciaron el abismo, y desde el fondo de ese silencio, te hice esta canción.
+                        Mirar las estrellas es, para mí, volver a ti. Es recordarte sentada sobre cueros en el umbral de
+                        nuestra casa en Antabamba, allí donde el aire es fino y el cielo parece dejarse tocar. No había
+                        frío, porque tu presencia era mi abrigo. Yo quería escribir promesas en el firmamento, pero tu
+                        Dios tuvo otros planes. Nunca entenderé la urgencia de arrancarte de nosotros, de dejarnos a
+                        siete hijos y a un esposo con el alma rota. Las estrellas no mienten, madre; aquella noche me
+                        anunciaron el abismo, y desde el fondo de ese silencio, te hice esta canción.
                     </p>
                     <div class="suno-players">
                         <!-- Canción 1 — sustituye SUNO_ID por el ID de tu canción en suno.com -->
@@ -216,13 +222,120 @@
 
         </section>
 
-    </main>
+        <!-- ===== SECCIÓN PLAYLIST PRUEBAS ===== -->
+        <section id="playlist" class="playlist-section reveal">
+            <div class="container">
+                <h2 class="section-title">Pruebas y Otras Versiones</h2>
+                <p class="section-intro">Experimentos, bocetos y versiones alternativas. Un laboratorio musical en
+                    constante evolución.</p>
 
-    <footer class="main-footer">
-        <p>© 2025 Ciro Edwin Portocarrero Pimentel. Todos los derechos reservados.</p>
-    </footer>
+                <div class="playlist-wrapper">
 
-    <script src="js/main.js"></script>
+                    <!-- Reproductor principal -->
+                    <div class="playlist-player">
+                        <div class="player-now-playing">
+                            <span class="player-label">▶ Escuchando ahora</span>
+                            <p id="player-title">Selecciona una canción</p>
+                        </div>
+                        <div id="player-embed">
+                            <div class="player-placeholder">
+                                🎵 Elige una canción de la lista o pulsa <strong>Aleatorio</strong>
+                            </div>
+                        </div>
+                        <div class="player-controls">
+                            <button class="player-btn" id="btn-prev" onclick="playPrev()">⏮ Anterior</button>
+                            <button class="player-btn player-btn-shuffle" id="btn-shuffle" onclick="shufflePlay()">🔀
+                                Aleatorio</button>
+                            <button class="player-btn" id="btn-next" onclick="playNext()">Siguiente ⏭</button>
+                        </div>
+                    </div>
+
+                    <!-- Lista de canciones -->
+                    <div class="playlist-list" id="playlist-list">
+                        <!-- Las canciones se generan desde el array JS de abajo -->
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Script de la Playlist -->
+        <script>
+            // ═══════════════════════════════════════════════════
+            //  AÑADE TUS CANCIONES AQUÍ
+            //  Formato: { titulo: "Nombre", id: "ID_de_suno" }
+            //  El ID es la parte final de: suno.com/song/ESTE-ES-EL-ID
+            // ═══════════════════════════════════════════════════
+            const canciones = [
+                { titulo: "Prueba 1 — sin título", id: "https://suno.com/s/0PauwtZfJPBe9eyR" },
+                { titulo: "Versión alternativa", id: "SUNO_ID_B" },
+                { titulo: "Boceto instrumental", id: "SUNO_ID_C" },
+                { titulo: "Experimento de ritmo", id: "SUNO_ID_D" },
+                // Añade más filas siguiendo el mismo patrón ↑
+            ];
+
+            let currentIndex = -1;
+
+            function renderList() {
+                const list = document.getElementById('playlist-list');
+                list.innerHTML = canciones.map((c, i) => `
+                <div class="playlist-item ${i === currentIndex ? 'active' : ''}" id="item-${i}" onclick="playAt(${i})">
+                    <span class="playlist-num">${String(i + 1).padStart(2, '0')}</span>
+                    <span class="playlist-name">${c.titulo}</span>
+                    <span class="playlist-play-icon">${i === currentIndex ? '▶' : '♪'}</span>
+                </div>
+            `).join('');
+            }
+
+            function playAt(index) {
+                currentIndex = index;
+                const cancion = canciones[index];
+                document.getElementById('player-title').textContent = cancion.titulo;
+                document.getElementById('player-embed').innerHTML = `
+                <iframe
+                    src="https://suno.com/embed/${cancion.id}"
+                    width="100%"
+                    height="240"
+                    frameborder="0"
+                    allow="autoplay; encrypted-media; fullscreen"
+                    allowfullscreen
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>`;
+                renderList();
+                document.getElementById('item-' + index)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+
+            function playNext() {
+                if (canciones.length === 0) return;
+                const next = (currentIndex + 1) % canciones.length;
+                playAt(next);
+            }
+
+            function playPrev() {
+                if (canciones.length === 0) return;
+                const prev = (currentIndex - 1 + canciones.length) % canciones.length;
+                playAt(prev);
+            }
+
+            function shufflePlay() {
+                if (canciones.length === 0) return;
+                let next;
+                do { next = Math.floor(Math.random() * canciones.length); }
+                while (next === currentIndex && canciones.length > 1);
+                playAt(next);
+            }
+
+            // Renderiza la lista al cargar
+            document.addEventListener('DOMContentLoaded', renderList);
+        </script>
+
+
+        <footer class="main-footer">
+            <p>© 2025 Ciro Edwin Portocarrero Pimentel. Todos los derechos reservados.</p>
+        </footer>
+
+        <script src="js/main.js"></script>
 </body>
 
 </html>
