@@ -21,7 +21,9 @@ body {
     background-image: url('https://www.transparenttextures.com/patterns/paper.png');
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     font-family: 'Merriweather', serif;
     font-weight: 700;
     color: #2c3e50;
@@ -40,6 +42,7 @@ h1, h2, h3 {
     color: #2c3e50;
     position: relative;
 }
+
 .section-title::after {
     content: '';
     display: block;
@@ -77,7 +80,8 @@ h1, h2, h3 {
 
 /* Regla Única y Corregida para los enlaces del menú */
 .main-nav ul li a {
-    position: relative; /* Para la animación */
+    position: relative;
+    /* Para la animación */
     text-decoration: none;
     color: #fff;
     /* CORRECCIÓN FINAL: Padding correcto para el espaciado */
@@ -90,18 +94,22 @@ h1, h2, h3 {
     position: absolute;
     width: 100%;
     height: 2px;
-    background-color: #f39c12; /* Color Oro Inca */
+    background-color: #f39c12;
+    /* Color Oro Inca */
     bottom: 0;
     left: 0;
-    transform: scaleX(0); /* Empieza sin ancho (invisible) */
+    transform: scaleX(0);
+    /* Empieza sin ancho (invisible) */
     transform-origin: bottom right;
     transition: transform 0.3s ease-out;
 }
 
 .main-nav ul li a:hover::after {
-    transform: scaleX(1); /* Se expande al 100% del ancho */
+    transform: scaleX(1);
+    /* Se expande al 100% del ancho */
     transform-origin: bottom left;
 }
+
 /* --- FIN DE LA SECCIÓN DE NAVEGACIÓN --- */
 
 
@@ -176,7 +184,7 @@ h1, h2, h3 {
     border-radius: 8px;
     margin-top: -80px;
     position: relative;
-    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 }
 
 .bio-content {
@@ -235,7 +243,7 @@ h1, h2, h3 {
     background: #fff;
     border-radius: 8px;
     overflow: hidden;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
     text-align: center;
     padding: 1.5rem;
     transition: transform 0.3s, box-shadow 0.3s;
@@ -246,13 +254,13 @@ h1, h2, h3 {
 
 .book-card:hover {
     transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
 }
 
 .book-card img {
     width: 100%;
-    height: 380px; 
-    object-fit: cover; 
+    height: 380px;
+    object-fit: cover;
     margin-bottom: 1rem;
 }
 
@@ -388,19 +396,23 @@ h1, h2, h3 {
     .author-name-sub {
         font-size: 2.5rem;
     }
+
     .bio-content {
         flex-direction: column;
         text-align: center;
     }
+
     .main-nav {
         flex-direction: column;
         position: relative;
     }
+
     .main-nav ul {
         margin-top: 1rem;
         flex-direction: column;
         align-items: center;
     }
+
     .page-header .main-nav {
         position: relative;
     }
@@ -454,7 +466,7 @@ h1, h2, h3 {
     position: relative;
     overflow: hidden;
     border-radius: 8px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     cursor: zoom-in;
 }
 
@@ -480,7 +492,7 @@ h1, h2, h3 {
     bottom: 0;
     left: 0;
     width: 100%;
-    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
     color: #fff;
     padding: 2rem 1rem 1rem;
     text-align: left;
@@ -488,6 +500,7 @@ h1, h2, h3 {
     transform: translateY(100%);
     transition: transform 0.4s ease;
 }
+
 .photo-item:hover .photo-caption {
     transform: translateY(0);
 }
@@ -553,7 +566,7 @@ h1, h2, h3 {
     padding: 15px;
     border-radius: 50%;
     font-size: 18px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s, opacity 0.5s;
 }
 
@@ -561,10 +574,15 @@ h1, h2, h3 {
     background-color: #c0392b;
 }
 
-.btn, .btn-amazon, .filter-btn {
+.btn,
+.btn-amazon,
+.filter-btn {
     transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
 }
-.btn:hover, .btn-amazon:hover, .filter-btn:hover {
+
+.btn:hover,
+.btn-amazon:hover,
+.filter-btn:hover {
     transform: translateY(-3px);
 }
 
@@ -578,6 +596,7 @@ h1, h2, h3 {
     border: 2px solid white;
     border-radius: 50px;
 }
+
 .scroll-down-indicator span {
     position: absolute;
     top: 10px;
@@ -595,12 +614,277 @@ h1, h2, h3 {
         opacity: 1;
         transform: translateX(-50%) translateY(0);
     }
+
     50% {
         opacity: 1;
         transform: translateX(-50%) translateY(15px);
     }
+
     100% {
         opacity: 0;
         transform: translateX(-50%) translateY(15px);
+    }
+}
+
+/* ===== NAVEGACIÓN — Enlace Tutorías destacado ===== */
+.nav-tutorias {
+    background: #f39c12;
+    color: #2c3e50 !important;
+    border-radius: 20px;
+    padding: 0.4rem 1rem !important;
+    font-weight: 700;
+    transition: background 0.3s ease, transform 0.2s ease !important;
+}
+
+.nav-tutorias:hover {
+    background: #e67e22;
+    color: #fff !important;
+}
+
+.nav-tutorias::after {
+    display: none !important;
+}
+
+/* ===== SECCIÓN TUTORÍAS ===== */
+#tutorias {
+    background: #fff;
+    padding: 4rem 2rem;
+    border-radius: 8px;
+    margin-top: 3rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+.tutorias-card {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    border-radius: 12px;
+    padding: 2.5rem 3rem;
+    color: #fff;
+    margin-top: 1rem;
+    border-left: 6px solid #f39c12;
+}
+
+.tutorias-icon {
+    font-size: 5rem;
+    flex-shrink: 0;
+}
+
+.tutorias-text h3 {
+    font-size: 1.8rem;
+    color: #f39c12;
+    margin-bottom: 0.8rem;
+}
+
+.tutorias-text p {
+    color: #ecf0f1;
+    margin-bottom: 1.5rem;
+    font-size: 1.05rem;
+    line-height: 1.7;
+}
+
+.btn-tutorias {
+    display: inline-block;
+    background: #f39c12;
+    color: #2c3e50;
+    padding: 0.85rem 2rem;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: 700;
+    font-size: 1rem;
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.btn-tutorias:hover {
+    background: #e67e22;
+    color: #fff;
+    transform: translateY(-3px);
+}
+
+@media(max-width: 768px) {
+    .tutorias-card {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem 1.5rem;
+    }
+}
+
+/* ===== SECCIÓN MÚSICA ===== */
+#musica {
+    background: #fff;
+    padding: 4rem 2rem;
+    border-radius: 8px;
+    margin-top: 3rem;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+.section-intro {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #7f8c8d;
+    max-width: 700px;
+    margin: 0 auto 2.5rem;
+    font-style: italic;
+}
+
+.music-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+}
+
+.music-card {
+    background: #f8f9fa;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.music-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.12);
+}
+
+/* Contenedor responsivo 16:9 para iframes de YouTube */
+.music-embed {
+    position: relative;
+    padding-top: 56.25%;
+    width: 100%;
+    background: #2c3e50;
+}
+
+.music-embed iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.music-title {
+    text-align: center;
+    padding: 1rem;
+    font-weight: 700;
+    color: #2c3e50;
+    font-size: 0.95rem;
+}
+
+/* ===== SECCIÓN MÚSICA — DEDICATORIAS ===== */
+.musica-section {
+    background: #ecf0f1;
+    padding: 4rem 0;
+    margin-top: 3rem;
+}
+
+.dedicatoria-card {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    max-width: 1100px;
+    margin: 3rem auto;
+    padding: 2.5rem;
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Alterna: foto a la derecha en las pares */
+.dedicatoria-invertida {
+    flex-direction: row-reverse;
+}
+
+.dedicatoria-foto {
+    flex-shrink: 0;
+    width: 260px;
+    height: 260px;
+}
+
+.dedicatoria-foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 4px solid #e74c3c;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+}
+
+.dedicatoria-content {
+    flex: 1;
+}
+
+.dedicatoria-label {
+    display: inline-block;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #e74c3c;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 0.4rem;
+}
+
+.dedicatoria-titulo {
+    font-size: 2rem;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+}
+
+.dedicatoria-descripcion {
+    font-size: 1rem;
+    color: #566573;
+    line-height: 1.8;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    border-left: 3px solid #f39c12;
+    padding-left: 1rem;
+}
+
+.suno-players {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.suno-track {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.suno-track-name {
+    font-weight: 700;
+    font-size: 0.9rem;
+    color: #2c3e50;
+}
+
+.suno-track iframe {
+    width: 100%;
+    border-radius: 8px;
+    border: none;
+}
+
+/* Responsive dedicatorias */
+@media(max-width: 768px) {
+
+    .dedicatoria-card,
+    .dedicatoria-invertida {
+        flex-direction: column;
+        text-align: center;
+        padding: 2rem 1.5rem;
+    }
+
+    .dedicatoria-foto {
+        width: 200px;
+        height: 200px;
+        margin: 0 auto;
+    }
+
+    .dedicatoria-descripcion {
+        border-left: none;
+        padding-left: 0;
+        border-top: 3px solid #f39c12;
+        padding-top: 1rem;
     }
 }
