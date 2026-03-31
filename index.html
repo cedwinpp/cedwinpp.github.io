@@ -207,7 +207,13 @@
                 { titulo: "La Sal de mi Existencia (v2)", id: "9383769e-f9d9-402b-b562-561ddc16cde6", dedicada: "Patricia" },
                 { titulo: "El Epílogo de la Nena (v1)", id: "a8e5e31f-b328-4e72-a2dd-c30498b5b34b", dedicada: "La Nena" },
                 { titulo: "El Epílogo de la Nena (v2)", id: "b7d715a5-24d5-4785-bf7b-2c58797eac46", dedicada: "La Nena" },
-                { titulo: "El Dolor de ser Feliz (v1)", id: "0c6b4f7a-3a34-49e4-b501-816205458bd2", dedicada: "Mamá" },
+                { 
+                    titulo: "El Dolor de ser Feliz (v1)", 
+                    id: "0c6b4f7a-3a34-49e4-b501-816205458bd2", 
+                    dedicada: "Mamá",
+                    imagen: "https://res.cloudinary.com/dvq9k24bz/image/upload/v1772395236/7855d40a-827c-4a73-bfd5-f9fd653827ab.png",
+                    historia: "Mirar las estrellas es, para mí, volver a ti. Es recordarte sentada sobre cueros en el umbral de nuestra casa en Antabamba, allí donde el aire es fino y el cielo parece dejarse tocar. No había frío, porque tu presencia era mi abrigo.\n\nYo quería escribir promesas en el firmamento, pero tu Dios tuvo otros planes. Nunca entenderé la urgencia de arrancarte de nosotros, de dejarnos a siete hijos y a un esposo con el alma rota.\n\nLas estrellas no mienten, madre; aquella noche me anunciaron el abismo, y desde el fondo de ese silencio, te hice esta canción."
+                },
                 { titulo: "El Dolor de ser Feliz (v2)", id: "3c70b064-d470-419f-8871-135971eacc83", dedicada: "Mamá" },
                 { titulo: "El Dolor de ser Feliz (v3)", id: "273810f8-39a9-4b26-9d50-039fdc0a1803", dedicada: "Mamá" },
                 { titulo: "El Dolor de ser Feliz (v4)", id: "267d5bb3-b159-44fd-802d-108c74e03803", dedicada: "Mamá" },
@@ -318,7 +324,14 @@
             function musicPlayAt(index) {
                 musicCurrentIndex = index;
                 const cancion = musicFilteredList[index];
-                document.getElementById('music-player-title').textContent = cancion.titulo;
+                
+                // Botón de historia si existe
+                let titleHtml = cancion.titulo;
+                if (cancion.historia) {
+                    titleHtml += ` <button class="btn-story" onclick="openStoryModal(${index})" title="Leer la historia detrás de esta canción">📖 Historia</button>`;
+                }
+                document.getElementById('music-player-title').innerHTML = titleHtml;
+                
                 document.getElementById('music-player-embed').innerHTML = `
                     <iframe
                         src="https://suno.com/embed/${cancion.id}"
@@ -359,7 +372,45 @@
                 renderFilterChips();
                 renderMusicList();
             });
+
+            // Funciones del Modal de Historia
+            function openStoryModal(index) {
+                const cancion = musicFilteredList[index];
+                if (!cancion || !cancion.historia) return;
+                
+                document.getElementById('story-modal-title').textContent = cancion.titulo;
+                document.getElementById('story-modal-text').innerHTML = cancion.historia.replace(/\n/g, '<br>');
+                
+                const imgContainer = document.getElementById('story-modal-img-container');
+                if (cancion.imagen) {
+                    imgContainer.innerHTML = `<img src="${cancion.imagen}" alt="Inspiración de ${cancion.titulo}">`;
+                    imgContainer.style.display = 'block';
+                } else {
+                    imgContainer.style.display = 'none';
+                }
+                
+                document.getElementById('story-modal').style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // Evitar scroll
+            }
+
+            function closeStoryModal() {
+                document.getElementById('story-modal').style.display = 'none';
+                document.body.style.overflow = 'auto'; // Restaurar scroll
+            }
         </script>
+
+        <!-- Modal de Historia de Canción -->
+        <div id="story-modal" class="story-modal-overlay" style="display: none;">
+            <div class="story-modal-content">
+                <button class="story-modal-close" onclick="closeStoryModal()" title="Cerrar">&times;</button>
+                <span class="story-modal-label">La historia de esta canción</span>
+                <h3 id="story-modal-title">Título</h3>
+                <div class="story-modal-body">
+                    <div id="story-modal-img-container" class="story-modal-img-container" style="display: none;"></div>
+                    <p id="story-modal-text" class="story-modal-text"></p>
+                </div>
+            </div>
+        </div>
 
 
         <footer class="main-footer">
