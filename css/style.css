@@ -889,6 +889,185 @@ h3 {
     }
 }
 
+/* ===== FILTROS DE DEDICATORIA ===== */
+.music-filters {
+    text-align: center;
+    margin: 2rem 0 1.5rem;
+}
+
+.filters-label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 1rem;
+    letter-spacing: 0.5px;
+}
+
+.filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    justify-content: center;
+}
+
+.filter-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3rem;
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    border: 2px solid #bdc3c7;
+    background: #fff;
+    color: #2c3e50;
+    font-size: 0.85rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.filter-chip input[type="radio"] {
+    display: none;
+}
+
+.filter-chip:hover {
+    border-color: #e74c3c;
+    background: #fff5f5;
+    transform: translateY(-2px);
+}
+
+.filter-chip.active {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: #fff;
+    border-color: #e74c3c;
+    box-shadow: 0 4px 12px rgba(231, 76, 60, 0.35);
+}
+
+.chip-icon {
+    font-size: 1rem;
+}
+
+/* ===== BANNER DE DEDICATORIA ===== */
+.dedicatoria-banner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: linear-gradient(135deg, #2c3e50, #34495e);
+    border-radius: 12px;
+    padding: 1.2rem 1.8rem;
+    margin-bottom: 1.5rem;
+    border-left: 5px solid #e74c3c;
+    animation: bannerSlideIn 0.4s ease;
+}
+
+@keyframes bannerSlideIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.dedicatoria-banner-icon {
+    font-size: 2rem;
+    color: #e74c3c;
+}
+
+.dedicatoria-banner-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: #e74c3c;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.dedicatoria-banner-name {
+    font-size: 1.5rem;
+    color: #fff;
+    margin: 0;
+}
+
+.dedicatoria-banner-count {
+    margin-left: auto;
+    font-size: 0.85rem;
+    color: #bdc3c7;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* ===== REPRODUCTOR UNIFICADO ===== */
+.music-player-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-top: 1.5rem;
+    align-items: start;
+}
+
+.music-player-box {
+    background: #34495e;
+    border-radius: 12px;
+    padding: 1.5rem;
+    position: sticky;
+    top: 5rem;
+}
+
+.music-song-list {
+    background: #34495e;
+    border-radius: 12px;
+    overflow: hidden;
+    max-height: 520px;
+    overflow-y: auto;
+}
+
+/* Sublínea de dedicatoria en la lista */
+.playlist-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+}
+
+.playlist-dedicada {
+    font-size: 0.7rem;
+    color: #95a5a6;
+    font-weight: 500;
+}
+
+.playlist-empty {
+    color: #7f8c8d;
+    text-align: center;
+    padding: 2rem;
+    font-style: italic;
+}
+
+/* Responsive reproductor unificado */
+@media(max-width: 768px) {
+    .music-player-wrapper {
+        grid-template-columns: 1fr;
+    }
+
+    .music-player-box {
+        position: static;
+    }
+
+    .music-song-list {
+        max-height: 350px;
+    }
+
+    .filter-chips {
+        gap: 0.4rem;
+    }
+
+    .filter-chip {
+        font-size: 0.8rem;
+        padding: 0.4rem 0.8rem;
+    }
+
+    .dedicatoria-banner {
+        flex-wrap: wrap;
+        padding: 1rem;
+    }
+}
+
 /* ===== SECCIÓN PLAYLIST ===== */
 .playlist-section {
     background: #2c3e50;

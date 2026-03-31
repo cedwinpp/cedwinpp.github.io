@@ -128,205 +128,226 @@
             </div>
         </section>
 
-        <!-- ===== SECCIÓN MÚSICA ===== -->
+        <!-- ===== SECCIÓN MÚSICA — REPRODUCTOR INTERACTIVO ===== -->
         <section id="musica" class="musica-section reveal">
             <div class="container">
                 <h2 class="section-title">Mi Música</h2>
                 <p class="section-intro">Además de la ciencia y la literatura, la música es otra forma de expresar lo
                     que las palabras a veces no alcanzan. Cada canción nació de un sentimiento, un recuerdo o una
                     persona especial.</p>
-            </div>
 
-            <!-- ── DEDICATORIA 1: Para mi madre ── -->
-            <div class="dedicatoria-card reveal">
-                <div class="dedicatoria-foto">
-                    <img src="https://res.cloudinary.com/dvq9k24bz/image/upload/v1772395236/7855d40a-827c-4a73-bfd5-f9fd653827ab.png"
-                        alt="Para mi madre">
-                    <!-- Sustituye URL_CLOUDINARY_FOTO_MADRE por tu URL de Cloudinary -->
-                </div>
-                <div class="dedicatoria-content">
-                    <span class="dedicatoria-label">♥ Dedicado a</span>
-                    <h3 class="dedicatoria-titulo">Mi Madre</h3>
-                    <p class="dedicatoria-descripcion">
-                        Mirar las estrellas es, para mí, volver a ti. Es recordarte sentada sobre cueros en el umbral de
-                        nuestra casa en Antabamba, allí donde el aire es fino y el cielo parece dejarse tocar. No había
-                        frío, porque tu presencia era mi abrigo. Yo quería escribir promesas en el firmamento, pero tu
-                        Dios tuvo otros planes. Nunca entenderé la urgencia de arrancarte de nosotros, de dejarnos a
-                        siete hijos y a un esposo con el alma rota. Las estrellas no mienten, madre; aquella noche me
-                        anunciaron el abismo, y desde el fondo de ese silencio, te hice esta canción.
-                    </p>
-                    <div class="suno-players">
-                        <!-- Canción 1 — sustituye SUNO_ID por el ID de tu canción en suno.com -->
-                        <div class="suno-track">
-                            <span class="suno-track-name">🎵 El dolor de ser feliz</span>
-                            <iframe src="https://suno.com/embed/0c6b4f7a-3a34-49e4-b501-816205458bd2" width="100%"
-                                height="240" frameborder="0" allow="autoplay; encrypted-media; fullscreen"
-                                allowfullscreen loading="lazy" referrerpolicy="no-referrer-when-downgrade">
-                                <a href="https://suno.com/song/0c6b4f7a-3a34-49e4-b501-816205458bd2">Listen on Suno</a>
-                            </iframe>
-                        </div>
+                <!-- FILTROS POR DEDICATORIA -->
+                <div class="music-filters" id="music-filters">
+                    <span class="filters-label">💝 Filtrar por dedicatoria:</span>
+                    <div class="filter-chips">
+                        <label class="filter-chip active" data-filter="todos">
+                            <input type="radio" name="dedicatoria" value="todos" checked> Todas
+                        </label>
+                        <!-- Los chips se generan dinámicamente desde JS -->
                     </div>
                 </div>
-            </div>
 
-            <!-- ── DEDICATORIA 2: Para mi padre ── -->
-            <div class="dedicatoria-card dedicatoria-invertida reveal">
-                <div class="dedicatoria-foto">
-                    <img src="URL_CLOUDINARY_FOTO_PADRE" alt="Para mi padre">
-                </div>
-                <div class="dedicatoria-content">
-                    <span class="dedicatoria-label">♥ Dedicado a</span>
-                    <h3 class="dedicatoria-titulo">Mi Padre</h3>
-                    <p class="dedicatoria-descripcion">
-                        Escribe aquí por qué creaste esta canción...
-                    </p>
-                    <div class="suno-players">
-                        <div class="suno-track">
-                            <span class="suno-track-name">🎵 Nombre de la canción</span>
-                            <iframe src="https://suno.com/embed/SUNO_ID_2" width="100%" height="166" frameborder="0"
-                                allow="autoplay">
-                            </iframe>
-                        </div>
+                <!-- CABECERA DE DEDICATORIA (aparece al filtrar) -->
+                <div class="dedicatoria-banner" id="dedicatoria-banner" style="display: none;">
+                    <span class="dedicatoria-banner-icon">♥</span>
+                    <div>
+                        <span class="dedicatoria-banner-label">Dedicado a</span>
+                        <h3 class="dedicatoria-banner-name" id="dedicatoria-name"></h3>
                     </div>
+                    <span class="dedicatoria-banner-count" id="dedicatoria-count"></span>
                 </div>
-            </div>
 
-            <!-- ── DEDICATORIA 3: Para la familia ── -->
-            <div class="dedicatoria-card reveal">
-                <div class="dedicatoria-foto">
-                    <img src="URL_CLOUDINARY_FOTO_FAMILIA" alt="Para la familia">
-                </div>
-                <div class="dedicatoria-content">
-                    <span class="dedicatoria-label">♥ Dedicado a</span>
-                    <h3 class="dedicatoria-titulo">Mi Familia</h3>
-                    <p class="dedicatoria-descripcion">
-                        Escribe aquí por qué creaste esta canción...
-                    </p>
-                    <div class="suno-players">
-                        <!-- Puedes poner más de una canción por dedicatoria -->
-                        <div class="suno-track">
-                            <span class="suno-track-name">🎵 Nombre de la canción</span>
-                            <iframe src="https://suno.com/embed/SUNO_ID_3" width="100%" height="166" frameborder="0"
-                                allow="autoplay">
-                            </iframe>
-                        </div>
-                        <div class="suno-track">
-                            <span class="suno-track-name">🎵 Nombre de otra canción</span>
-                            <iframe src="https://suno.com/embed/SUNO_ID_4" width="100%" height="166" frameborder="0"
-                                allow="autoplay">
-                            </iframe>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <div class="music-player-wrapper">
 
-        </section>
-
-        <!-- ===== SECCIÓN PLAYLIST PRUEBAS ===== -->
-        <section id="playlist" class="playlist-section reveal">
-            <div class="container">
-                <h2 class="section-title">Pruebas y Otras Versiones</h2>
-                <p class="section-intro">Experimentos, bocetos y versiones alternativas. Un laboratorio musical en
-                    constante evolución.</p>
-
-                <div class="playlist-wrapper">
-
-                    <!-- Reproductor principal -->
-                    <div class="playlist-player">
+                    <!-- REPRODUCTOR (izquierda) -->
+                    <div class="music-player-box">
                         <div class="player-now-playing">
                             <span class="player-label">▶ Escuchando ahora</span>
-                            <p id="player-title">Selecciona una canción</p>
+                            <p id="music-player-title">Selecciona una canción</p>
                         </div>
-                        <div id="player-embed">
+                        <div id="music-player-embed">
                             <div class="player-placeholder">
                                 🎵 Elige una canción de la lista o pulsa <strong>Aleatorio</strong>
                             </div>
                         </div>
                         <div class="player-controls">
-                            <button class="player-btn" id="btn-prev" onclick="playPrev()">⏮ Anterior</button>
-                            <button class="player-btn player-btn-shuffle" id="btn-shuffle" onclick="shufflePlay()">🔀
-                                Aleatorio</button>
-                            <button class="player-btn" id="btn-next" onclick="playNext()">Siguiente ⏭</button>
+                            <button class="player-btn" id="btn-m-prev" onclick="musicPlayerPrev()">⏮ Anterior</button>
+                            <button class="player-btn player-btn-shuffle" id="btn-m-shuffle" onclick="musicPlayerShuffle()">🔀 Aleatorio</button>
+                            <button class="player-btn" id="btn-m-next" onclick="musicPlayerNext()">Siguiente ⏭</button>
                         </div>
                     </div>
 
-                    <!-- Lista de canciones -->
-                    <div class="playlist-list" id="playlist-list">
-                        <!-- Las canciones se generan desde el array JS de abajo -->
+                    <!-- LISTA DE CANCIONES (derecha) -->
+                    <div class="music-song-list" id="music-song-list">
+                        <!-- Se genera desde JS -->
                     </div>
 
                 </div>
             </div>
         </section>
 
-        <!-- Script de la Playlist -->
+        <!-- Script del Reproductor Musical -->
         <script>
             // ═══════════════════════════════════════════════════
-            //  AÑADE TUS CANCIONES AQUÍ
-            //  Formato: { titulo: "Nombre", id: "ID_de_suno" }
-            //  El ID es la parte final de: suno.com/song/ESTE-ES-EL-ID
+            //  BASE DE DATOS DE CANCIONES
+            //  Para añadir más: copia una línea y cambia los datos
             // ═══════════════════════════════════════════════════
-            const canciones = [
-                { titulo: "El dolor de ser feliz", id: "3e8a442f-9233-4cb5-9926-468555a70081" },
-                { titulo: "Versión alternativa", id: "SUNO_ID_B" },
-                { titulo: "Boceto instrumental", id: "SUNO_ID_C" },
-                { titulo: "Experimento de ritmo", id: "SUNO_ID_D" },
-                // Añade más filas siguiendo el mismo patrón ↑
+            const misCanciones = [
+                { titulo: "El Brillo de tu Sombra (v1)", id: "3e8a442f-9233-4cb5-9926-468555a70081", dedicada: "Papá" },
+                { titulo: "El Brillo de tu Sombra (v2)", id: "2110aa3c-1c13-4282-9913-ca244f32739c", dedicada: "Papá" },
+                { titulo: "El Pastor de Siete Estrellas (v1)", id: "e0b7b8d8-17ff-4628-babb-7fbc9108ce3d", dedicada: "Papá" },
+                { titulo: "El Pastor de Siete Estrellas (v2)", id: "96168c2d-fa59-46b2-aae7-c322b6d824d1", dedicada: "Papá" },
+                { titulo: "Papá (v1)", id: "d7790a1c-08d4-4687-890b-64244e985a78", dedicada: "Papá" },
+                { titulo: "Papá (v2)", id: "68f4b261-5a3b-4e78-827a-d1bc46ab1088", dedicada: "Papá" },
+                { titulo: "El Manual del Aire (v1)", id: "ad63f860-1475-4059-a3c4-187e3ea007f5", dedicada: "Tely" },
+                { titulo: "El Manual del Aire (v2)", id: "afbd5348-ffc7-4812-a53c-7a058771e97c", dedicada: "Tely" },
+                { titulo: "El Viento de Antabamba (v1)", id: "6c22a6e8-3248-4e28-8464-d3b185deeee3", dedicada: "Tely" },
+                { titulo: "El Viento de Antabamba (v2)", id: "9348fad7-e70a-4575-ae61-a059318d5ba3", dedicada: "Tely" },
+                { titulo: "La Sal de mi Existencia (v1)", id: "4976380e-cbdf-4a22-a812-68cff15b74d8", dedicada: "Patricia" },
+                { titulo: "La Sal de mi Existencia (v2)", id: "9383769e-f9d9-402b-b562-561ddc16cde6", dedicada: "Patricia" },
+                { titulo: "El Epílogo de la Nena (v1)", id: "a8e5e31f-b328-4e72-a2dd-c30498b5b34b", dedicada: "La Nena" },
+                { titulo: "El Epílogo de la Nena (v2)", id: "b7d715a5-24d5-4785-bf7b-2c58797eac46", dedicada: "La Nena" },
+                { titulo: "El Dolor de ser Feliz (v1)", id: "0c6b4f7a-3a34-49e4-b501-816205458bd2", dedicada: "Mamá" },
+                { titulo: "El Dolor de ser Feliz (v2)", id: "3c70b064-d470-419f-8871-135971eacc83", dedicada: "Mamá" },
+                { titulo: "El Dolor de ser Feliz (v3)", id: "273810f8-39a9-4b26-9d50-039fdc0a1803", dedicada: "Mamá" },
+                { titulo: "El Dolor de ser Feliz (v4)", id: "267d5bb3-b159-44fd-802d-108c74e03803", dedicada: "Mamá" },
+                // ↓ Añade más canciones aquí siguiendo el mismo formato ↓
             ];
 
-            let currentIndex = -1;
+            let musicCurrentIndex = -1;
+            let musicFilteredList = [...misCanciones];
+            let musicActiveFilter = 'todos';
 
-            function renderList() {
-                const list = document.getElementById('playlist-list');
-                list.innerHTML = canciones.map((c, i) => `
-                <div class="playlist-item ${i === currentIndex ? 'active' : ''}" id="item-${i}" onclick="playAt(${i})">
-                    <span class="playlist-num">${String(i + 1).padStart(2, '0')}</span>
-                    <span class="playlist-name">${c.titulo}</span>
-                    <span class="playlist-play-icon">${i === currentIndex ? '▶' : '♪'}</span>
-                </div>
-            `).join('');
+            // Obtener dedicatorias únicas
+            function getDedicatorias() {
+                const set = new Set(misCanciones.map(c => c.dedicada));
+                return [...set];
             }
 
-            function playAt(index) {
-                currentIndex = index;
-                const cancion = canciones[index];
-                document.getElementById('player-title').textContent = cancion.titulo;
-                document.getElementById('player-embed').innerHTML = `
-                <iframe
-                    src="https://suno.com/embed/${cancion.id}"
-                    width="100%"
-                    height="240"
-                    frameborder="0"
-                    allow="autoplay; encrypted-media; fullscreen"
-                    allowfullscreen
-                    loading="lazy"
-                    referrerpolicy="no-referrer-when-downgrade">
-                </iframe>`;
-                renderList();
-                document.getElementById('item-' + index)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            // Crear los chips de filtro
+            function renderFilterChips() {
+                const container = document.querySelector('.filter-chips');
+                const dedicatorias = getDedicatorias();
+
+                // Chip "Todas"
+                let html = `<label class="filter-chip active" data-filter="todos" onclick="filterMusic('todos', this)">
+                    <span class="chip-icon">🎵</span> Todas (${misCanciones.length})
+                </label>`;
+
+                // Emoji para cada dedicatoria
+                const emojis = {
+                    'Papá': '👨', 'Mamá': '👩', 'Tely': '💜', 
+                    'Patricia': '🌹', 'La Nena': '🌸', 'Familia': '👨‍👩‍👧‍👦'
+                };
+
+                dedicatorias.forEach(d => {
+                    const count = misCanciones.filter(c => c.dedicada === d).length;
+                    const emoji = emojis[d] || '💝';
+                    html += `<label class="filter-chip" data-filter="${d}" onclick="filterMusic('${d}', this)">
+                        <span class="chip-icon">${emoji}</span> ${d} (${count})
+                    </label>`;
+                });
+
+                container.innerHTML = html;
             }
 
-            function playNext() {
-                if (canciones.length === 0) return;
-                const next = (currentIndex + 1) % canciones.length;
-                playAt(next);
+            // Filtrar canciones
+            function filterMusic(filter, chipEl) {
+                musicActiveFilter = filter;
+                musicCurrentIndex = -1;
+
+                // Actualizar chips activos
+                document.querySelectorAll('.filter-chip').forEach(c => c.classList.remove('active'));
+                if (chipEl) chipEl.classList.add('active');
+
+                // Filtrar lista
+                if (filter === 'todos') {
+                    musicFilteredList = [...misCanciones];
+                    document.getElementById('dedicatoria-banner').style.display = 'none';
+                } else {
+                    musicFilteredList = misCanciones.filter(c => c.dedicada === filter);
+                    // Mostrar banner
+                    const banner = document.getElementById('dedicatoria-banner');
+                    banner.style.display = 'flex';
+                    document.getElementById('dedicatoria-name').textContent = filter;
+                    document.getElementById('dedicatoria-count').textContent = musicFilteredList.length + ' canción' + (musicFilteredList.length !== 1 ? 'es' : '');
+                }
+
+                // Resetear reproductor
+                document.getElementById('music-player-title').textContent = 'Selecciona una canción';
+                document.getElementById('music-player-embed').innerHTML = `
+                    <div class="player-placeholder">
+                        🎵 Elige una canción de la lista o pulsa <strong>Aleatorio</strong>
+                    </div>`;
+
+                renderMusicList();
             }
 
-            function playPrev() {
-                if (canciones.length === 0) return;
-                const prev = (currentIndex - 1 + canciones.length) % canciones.length;
-                playAt(prev);
+            // Renderizar lista de canciones
+            function renderMusicList() {
+                const list = document.getElementById('music-song-list');
+                if (musicFilteredList.length === 0) {
+                    list.innerHTML = '<div class="playlist-empty">No hay canciones en esta categoría</div>';
+                    return;
+                }
+
+                list.innerHTML = musicFilteredList.map((c, i) => `
+                    <div class="playlist-item ${i === musicCurrentIndex ? 'active' : ''}" id="music-item-${i}" onclick="musicPlayAt(${i})">
+                        <span class="playlist-num">${String(i + 1).padStart(2, '0')}</span>
+                        <div class="playlist-info">
+                            <span class="playlist-name">${c.titulo}</span>
+                            <span class="playlist-dedicada">${musicActiveFilter === 'todos' ? '💝 ' + c.dedicada : ''}</span>
+                        </div>
+                        <span class="playlist-play-icon">${i === musicCurrentIndex ? '▶' : '♪'}</span>
+                    </div>
+                `).join('');
             }
 
-            function shufflePlay() {
-                if (canciones.length === 0) return;
+            // Reproducir canción
+            function musicPlayAt(index) {
+                musicCurrentIndex = index;
+                const cancion = musicFilteredList[index];
+                document.getElementById('music-player-title').textContent = cancion.titulo;
+                document.getElementById('music-player-embed').innerHTML = `
+                    <iframe
+                        src="https://suno.com/embed/${cancion.id}"
+                        width="100%"
+                        height="240"
+                        frameborder="0"
+                        allow="autoplay; encrypted-media; fullscreen"
+                        allowfullscreen
+                        loading="lazy"
+                        referrerpolicy="no-referrer-when-downgrade">
+                    </iframe>`;
+                renderMusicList();
+                document.getElementById('music-item-' + index)?.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }
+
+            function musicPlayerNext() {
+                if (musicFilteredList.length === 0) return;
+                const next = (musicCurrentIndex + 1) % musicFilteredList.length;
+                musicPlayAt(next);
+            }
+
+            function musicPlayerPrev() {
+                if (musicFilteredList.length === 0) return;
+                const prev = (musicCurrentIndex - 1 + musicFilteredList.length) % musicFilteredList.length;
+                musicPlayAt(prev);
+            }
+
+            function musicPlayerShuffle() {
+                if (musicFilteredList.length === 0) return;
                 let next;
-                do { next = Math.floor(Math.random() * canciones.length); }
-                while (next === currentIndex && canciones.length > 1);
-                playAt(next);
+                do { next = Math.floor(Math.random() * musicFilteredList.length); }
+                while (next === musicCurrentIndex && musicFilteredList.length > 1);
+                musicPlayAt(next);
             }
 
-            document.addEventListener('DOMContentLoaded', renderList);
+            // Inicializar
+            document.addEventListener('DOMContentLoaded', function() {
+                renderFilterChips();
+                renderMusicList();
+            });
         </script>
 
 
