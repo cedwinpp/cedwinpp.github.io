@@ -212,9 +212,16 @@
                     id: "0c6b4f7a-3a34-49e4-b501-816205458bd2", 
                     dedicada: "Mamá",
                     imagen: "https://res.cloudinary.com/dvq9k24bz/image/upload/v1772395236/7855d40a-827c-4a73-bfd5-f9fd653827ab.png",
+                    // EJEMPLO TEXTO LOCAL:
                     historia: "Mirar las estrellas es, para mí, volver a ti. Es recordarte sentada sobre cueros en el umbral de nuestra casa en Antabamba, allí donde el aire es fino y el cielo parece dejarse tocar. No había frío, porque tu presencia era mi abrigo.\n\nYo quería escribir promesas en el firmamento, pero tu Dios tuvo otros planes. Nunca entenderé la urgencia de arrancarte de nosotros, de dejarnos a siete hijos y a un esposo con el alma rota.\n\nLas estrellas no mienten, madre; aquella noche me anunciaron el abismo, y desde el fondo de ese silencio, te hice esta canción."
                 },
-                { titulo: "El Dolor de ser Feliz (v2)", id: "3c70b064-d470-419f-8871-135971eacc83", dedicada: "Mamá" },
+                { 
+                    titulo: "El Dolor de ser Feliz (v2)", 
+                    id: "3c70b064-d470-419f-8871-135971eacc83", 
+                    dedicada: "Mamá",
+                    // EJEMPLO TEXTO CLOUDINARY:
+                    // historiaUrl: "https://res.cloudinary.com/tu-id/raw/upload/v123456/historia_papa.txt"
+                },
                 { titulo: "El Dolor de ser Feliz (v3)", id: "273810f8-39a9-4b26-9d50-039fdc0a1803", dedicada: "Mamá" },
                 { titulo: "El Dolor de ser Feliz (v4)", id: "267d5bb3-b159-44fd-802d-108c74e03803", dedicada: "Mamá" },
                 { titulo: "El Pasajero Eterno (v1)", id: "e634a066-25d2-4c19-b38f-2a5e6c25cfcc", dedicada: "Edwin" },
@@ -325,9 +332,9 @@
                 musicCurrentIndex = index;
                 const cancion = musicFilteredList[index];
                 
-                // Botón de historia si existe
+                // Botón de historia si existe localmente o como URL
                 let titleHtml = cancion.titulo;
-                if (cancion.historia) {
+                if (cancion.historia || cancion.historiaUrl) {
                     titleHtml += ` <button class="btn-story" onclick="openStoryModal(${index})" title="Leer la historia detrás de esta canción">📖 Historia</button>`;
                 }
                 document.getElementById('music-player-title').innerHTML = titleHtml;
@@ -374,12 +381,12 @@
             });
 
             // Funciones del Modal de Historia
-            function openStoryModal(index) {
+            async function openStoryModal(index) {
                 const cancion = musicFilteredList[index];
-                if (!cancion || !cancion.historia) return;
+                if (!cancion || (!cancion.historia && !cancion.historiaUrl)) return;
                 
                 document.getElementById('story-modal-title').textContent = cancion.titulo;
-                document.getElementById('story-modal-text').innerHTML = cancion.historia.replace(/\n/g, '<br>');
+                const textContainer = document.getElementById('story-modal-text');
                 
                 const imgContainer = document.getElementById('story-modal-img-container');
                 if (cancion.imagen) {
@@ -388,9 +395,27 @@
                 } else {
                     imgContainer.style.display = 'none';
                 }
-                
+
                 document.getElementById('story-modal').style.display = 'flex';
                 document.body.style.overflow = 'hidden'; // Evitar scroll
+                
+                // Cargar texto asíncronamente desde Cloudinary u otra URL
+                if (cancion.historiaUrl) {
+                    textContainer.innerHTML = '<em>Cargando historia desde la nube... ☁️</em>';
+                    try {
+                        const response = await fetch(cancion.historiaUrl);
+                        if (!response.ok) throw new Error('Error HTTP ' + response.status);
+                        const textoNube = await response.text();
+                        textContainer.innerHTML = textoNube.replace(/\n/g, '<br>');
+                    } catch (error) {
+                        textContainer.innerHTML = '<span style="color: #e74c3c;">Hubo un error al cargar la historia desde la nube. Por favor, intenta de nuevo más tarde.</span>';
+                        console.error('Error cargando la historia:', error);
+                    }
+                } 
+                // Si el texto está guardado directamente aquí (localmente)
+                else if (cancion.historia) {
+                    textContainer.innerHTML = cancion.historia.replace(/\n/g, '<br>');
+                }
             }
 
             function closeStoryModal() {
