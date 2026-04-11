@@ -15,7 +15,12 @@ def receive_from_gemini(ws, gemini_ws):
         for message in gemini_ws:
             ws.send(message)
     except Exception as e:
-        print(f"La conexión con Gemini se cerró: {e}")
+        error_msg = f"La conexión con Gemini se cerró: {str(e)}"
+        print(error_msg)
+        try:
+            ws.send(f'{{"error": "{error_msg}"}}')
+        except:
+            pass
 
 @sock.route('/ws/gemini')
 def gemini_ws_proxy(ws):
