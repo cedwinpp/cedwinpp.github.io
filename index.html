@@ -137,9 +137,7 @@
         <section id="musica" class="musica-section reveal">
             <div class="container">
                 <h2 class="section-title">Mi Música</h2>
-                <p class="section-intro">Además de la ciencia y la literatura, la música es otra forma de expresar lo
-                    que las palabras a veces no alcanzan. Cada canción nació de un sentimiento, un recuerdo o una
-                    persona especial.</p>
+                <p class="section-intro">La música, al igual que la ciencia y la literatura, posee la magia de conectar con emociones profundas que a menudo escapan al alcance de las palabras. Cada melodía y ritmo de esta colección nace de un sentimiento sincero, un recuerdo preciado o la esencia de una persona especial. Estas creaciones son fruto de una colaboración única con la Inteligencia Artificial, que me ha ayudado a dar vida a estas visiones sonoras, capturando la esencia de mis historias. Algunas de estas composiciones van acompañadas de un relato que te sumergirá en la fuente de inspiración original. ¡Espero que encuentres una resonancia personal en cada una de ellas!</p>
 
                 <!-- FILTROS POR DEDICATORIA -->
                 <div class="music-filters" id="music-filters">
@@ -149,6 +147,9 @@
                             <input type="radio" name="dedicatoria" value="todos" checked> Todas
                         </label>
                         <!-- Los chips se generan dinámicamente desde JS -->
+                    </div>
+                    <div style="margin-top: 1rem; width: 100%; text-align: right;">
+                        <button class="btn btn-tutorias share-btn" onclick="compartirNovedad()" style="font-size: 0.85rem; padding: 0.5rem 1rem; text-transform:none;">📢 Compartir Novedades (WhatsApp)</button>
                     </div>
                 </div>
 
@@ -417,16 +418,21 @@ Mi recuerdo queda aquí, profundamente agradecido a aquellos compañeros de penu
                     return;
                 }
 
-                list.innerHTML = musicFilteredList.map((c, i) => `
-                    <div class="playlist-item ${i === musicCurrentIndex ? 'active' : ''}" id="music-item-${i}" onclick="musicPlayAt(${i})">
+                list.innerHTML = musicFilteredList.map((c, i) => {
+                    const hasStory = !!(c.historia || c.historiaUrl);
+                    const storyIcon = hasStory ? '<span style="margin-left: 6px;">📖</span>' : '';
+                    const tooltipAttr = hasStory ? 'title="Haz clic para leer la historia detrás de esta canción"' : '';
+                    
+                    return `
+                    <div class="playlist-item ${i === musicCurrentIndex ? 'active' : ''}" id="music-item-${i}" onclick="musicPlayAt(${i})" ${tooltipAttr}>
                         <span class="playlist-num">${String(i + 1).padStart(2, '0')}</span>
                         <div class="playlist-info">
-                            <span class="playlist-name">${c.titulo}</span>
+                            <span class="playlist-name">${c.titulo}${storyIcon}</span>
                             <span class="playlist-dedicada">${musicActiveFilter === 'todos' ? '💝 ' + c.dedicada : ''}</span>
                         </div>
                         <span class="playlist-play-icon">${i === musicCurrentIndex ? '▶' : '♪'}</span>
                     </div>
-                `).join('');
+                `}).join('');
             }
 
             // Reproducir canción
@@ -474,6 +480,13 @@ Mi recuerdo queda aquí, profundamente agradecido a aquellos compañeros de penu
                 do { next = Math.floor(Math.random() * musicFilteredList.length); }
                 while (next === musicCurrentIndex && musicFilteredList.length > 1);
                 musicPlayAt(next);
+            }
+
+            // Compartir Novedades
+            function compartirNovedad() {
+                const text = "¡Hola! He añadido algunas novedades musicales a mi página. ¡Descúbrelas aquí!\n\nhttps://cedwinpp.github.io/#musica";
+                const url = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+                window.open(url, '_blank');
             }
 
             // Inicializar
