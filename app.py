@@ -1,8 +1,46 @@
 from flask import Flask, render_template, abort
+from flask_sock import Sock
 import os
+import threading
 
 # Configuración: los recursos (css, imgs) están en 'static' pero se sirven como si estuvieran en '/'
 app = Flask(__name__, static_folder='static', static_url_path='/')
+sock = Sock(app)
+
+GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '')
+
+# Función auxiliar para recibir desde Gemini en un hilo
+def receive_from_gemini(ws, gemini_ws):
+    try:
+        for message in gemini_ws:
+            ws.send(message)
+    except Exception as e:
+        print(f"La conexión con Gemini se cerró: {e}")
+
+@sock.route('/ws/gemini')
+def gemini_ws_proxy(ws):
+    if not GEMINI_API_KEY:
+        ws.send('{"error": "API Key no configurada en el servidor"}')
+        return
+
+    import websockets.sync.client
+    ws_url = f"wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1alpha.GenerativeService.BidiGenerateContent?key={GEMINI_API_KEY}"
+    
+    try:
+        with websockets.sync.client.connect(ws_url) as gemini_ws:
+            # Iniciar hilo que lee de Gemini y envía al cliente (Navegador)
+            t = threading.Thread(target=receive_from_gemini, args=(ws, gemini_ws), daemon=True)
+            t.start()
+
+            # Bucle principal: Leer del cliente (Navegador) y mandar a Gemini
+            while True:
+                data = ws.receive()
+                if data is None:
+                    break
+                gemini_ws.send(data)
+    except Exception as e:
+        print(f"Error en proxy WebSocket: {e}")
+
 
 @app.route('/')
 def home():
