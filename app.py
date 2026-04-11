@@ -39,7 +39,13 @@ def gemini_ws_proxy(ws):
                     break
                 gemini_ws.send(data)
     except Exception as e:
-        print(f"Error en proxy WebSocket: {e}")
+        import traceback
+        error_msg = f"Error en conexión: {str(e)}"
+        print(error_msg)
+        try:
+            ws.send(f'{{"error": "{error_msg}"}}')
+        except:
+            pass
 
 
 @app.route('/')
