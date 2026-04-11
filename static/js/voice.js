@@ -61,7 +61,7 @@ class VoiceAssistant {
                 // Configurar Gemini
                 this.ws.send(JSON.stringify({
                     setup: {
-                        model: 'models/gemini-2.0-flash-exp',
+                        model: 'models/gemini-2.0-flash',
                         systemInstruction: {
                             parts: [{text: "Eres un asistente de voz amable en la página personal del autor Ciro Edwin Portocarrero Pimentel. Tu objetivo es dar una bienvenida muy breve y amigable. Responde siempre de forma corta, oral, y con tono cálido invitando a explorar sus historias y su música. Ocasionalmente menciona tu nombre, Rimi."}]
                         },
