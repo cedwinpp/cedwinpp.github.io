@@ -58,17 +58,16 @@ class VoiceAssistant {
                 btn.style.backgroundColor = '#28a745'; // verde activo
                 btn.classList.add('pulse-animation');
                 
-                // Configurar Gemini
+                // Configurar Gemini para v1beta
                 this.ws.send(JSON.stringify({
-                    setup: {
+                    config: {
                         model: 'models/gemini-2.0-flash',
                         systemInstruction: {
                             parts: [{text: "Eres un asistente de voz amable en la página personal del autor Ciro Edwin Portocarrero Pimentel. Tu objetivo es dar una bienvenida muy breve y amigable. Responde siempre de forma corta, oral, y con tono cálido invitando a explorar sus historias y su música. Ocasionalmente menciona tu nombre, Rimi."}]
                         },
-                        generationConfig: {
-                            responseModalities: ["AUDIO"],
-                            speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Aoede" } } }
-                        }
+                        // Se han bajado de nivel según v1beta
+                        responseModalities: ["AUDIO"],
+                        speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Aoede" } } }
                     }
                 }));
 
