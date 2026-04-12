@@ -61,13 +61,13 @@ class VoiceAssistant {
                 // Configurar Gemini
                 this.ws.send(JSON.stringify({
                     setup: {
-                        model: 'models/gemini-3.1-flash-live-preview',
-                        systemInstruction: {
+                        model: 'models/gemini-2.0-flash-exp',
+                        system_instruction: {
                             parts: [{text: "Eres un asistente de voz amable en la página personal del autor Ciro Edwin Portocarrero Pimentel. Tu objetivo es dar una bienvenida muy breve y amigable. Responde siempre de forma corta, oral, y con tono cálido invitando a explorar sus historias y su música. Ocasionalmente menciona tu nombre, Rimi."}]
                         },
-                        generationConfig: {
-                            responseModalities: ["AUDIO"],
-                            speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Aoede" } } }
+                        generation_config: {
+                            response_modalities: ["AUDIO"],
+                            speech_config: { voice_config: { prebuilt_voice_config: { voice_name: "Aoede" } } }
                         }
                     }
                 }));
@@ -76,12 +76,12 @@ class VoiceAssistant {
                 setTimeout(() => {
                     if (this.isActive && this.ws.readyState === WebSocket.OPEN) {
                         this.ws.send(JSON.stringify({
-                            clientContent: {
+                            client_content: {
                                 turns: [{
                                     role: "user",
                                     parts: [{ text: "Hola Rimi, acabo de entrar a la página." }]
                                 }],
-                                turnComplete: true
+                                turn_complete: true
                             }
                         }));
                     }
@@ -109,11 +109,11 @@ class VoiceAssistant {
                     }
                     
                     this.ws.send(JSON.stringify({
-                        realtimeInput: {
-                            audio: {
+                        realtime_input: {
+                            media_chunks: [{
                                 mime_type: "audio/pcm;rate=16000",
                                 data: btoa(binary)
-                            }
+                            }]
                         }
                     }));
                 };
@@ -122,11 +122,11 @@ class VoiceAssistant {
             this.ws.onmessage = (event) => {
                 try {
                     const response = JSON.parse(event.data);
-                    if (response.serverContent && response.serverContent.modelTurn) {
-                        const parts = response.serverContent.modelTurn.parts;
+                    if (response.server_content && response.server_content.model_turn) {
+                        const parts = response.server_content.model_turn.parts;
                         parts.forEach(part => {
-                            if (part.inlineData && part.inlineData.data) {
-                                this.playAudioBase64(part.inlineData.data);
+                            if (part.inline_data && part.inline_data.data) {
+                                this.playAudioBase64(part.inline_data.data);
                             }
                         });
                     } else if (response.error) {
