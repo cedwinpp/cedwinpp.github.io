@@ -110,10 +110,10 @@ class VoiceAssistant {
                     
                     this.ws.send(JSON.stringify({
                         realtime_input: {
-                            media_chunks: [{
+                            audio: {
                                 mime_type: "audio/pcm;rate=16000",
                                 data: btoa(binary)
-                            }]
+                            }
                         }
                     }));
                 };
