@@ -6,6 +6,7 @@ class VoiceAssistant {
         this.mediaStream = null;
         this.processor = null;
         this.isActive = false;
+        this.isReady = false;
         
         this.initUI();
     }
@@ -55,6 +56,7 @@ class VoiceAssistant {
 
             this.ws.onopen = () => {
                 this.isActive = true;
+                this.isReady = false; // Reset al conectar
                 btn.style.backgroundColor = '#28a745'; // verde activo
                 btn.classList.add('pulse-animation');
                 
@@ -94,7 +96,7 @@ class VoiceAssistant {
                 this.processor.connect(this.audioContext.destination);
 
                 this.processor.onaudioprocess = (e) => {
-                    if (!this.isActive) return;
+                    if (!this.isActive || !this.isReady) return;
                     const inputData = e.inputBuffer.getChannelData(0);
                     const pcm16 = new Int16Array(inputData.length);
                     for (let i = 0; i < inputData.length; i++) {
@@ -111,7 +113,6 @@ class VoiceAssistant {
                     this.ws.send(JSON.stringify({
                         realtime_input: {
                             audio: {
-                                mime_type: "audio/pcm;rate=16000",
                                 data: btoa(binary)
                             }
                         }
@@ -122,6 +123,12 @@ class VoiceAssistant {
             this.ws.onmessage = (event) => {
                 try {
                     const response = JSON.parse(event.data);
+                    
+                    if (response.setup_complete) {
+                        this.isReady = true;
+                        console.log("Rimi está listo para escuchar.");
+                    }
+
                     if (response.server_content && response.server_content.model_turn) {
                         const parts = response.server_content.model_turn.parts;
                         parts.forEach(part => {
@@ -171,6 +178,7 @@ class VoiceAssistant {
 
     stopVoice() {
         this.isActive = false;
+        this.isReady = false;
         if (this.processor) {
             this.processor.disconnect();
             this.processor = null;
