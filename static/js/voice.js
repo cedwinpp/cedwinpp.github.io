@@ -61,7 +61,7 @@ class VoiceAssistant {
                 // Configurar Gemini
                 this.ws.send(JSON.stringify({
                     setup: {
-                        model: 'models/gemini-2.0-flash',
+                        model: 'models/gemini-2.0-flash-exp',
                         systemInstruction: {
                             parts: [{text: "Eres un asistente de voz amable en la página personal del autor Ciro Edwin Portocarrero Pimentel. Tu objetivo es dar una bienvenida muy breve y amigable. Responde siempre de forma corta, oral, y con tono cálido invitando a explorar sus historias y su música. Ocasionalmente menciona tu nombre, Rimi."}]
                         },
@@ -71,6 +71,21 @@ class VoiceAssistant {
                         }
                     }
                 }));
+
+                // Forzamos a que el modelo inicie la charla al conectarse
+                setTimeout(() => {
+                    if (this.isActive && this.ws.readyState === WebSocket.OPEN) {
+                        this.ws.send(JSON.stringify({
+                            clientContent: {
+                                turns: [{
+                                    role: "user",
+                                    parts: [{ text: "Hola Rimi, acabo de entrar a la página." }]
+                                }],
+                                turnComplete: true
+                            }
+                        }));
+                    }
+                }, 500);
 
                 const source = this.audioContext.createMediaStreamSource(this.mediaStream);
                 this.processor = this.audioContext.createScriptProcessor(4096, 1, 1);
