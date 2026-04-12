@@ -57,6 +57,20 @@ def gemini_ws_proxy(ws):
 def home():
     return render_template('index.html')
 
+@app.route('/debug_models')
+def debug_models():
+    import urllib.request
+    import json
+    if not GEMINI_API_KEY:
+        return {"error": "API Key no configurada"}
+    url = f"https://generativelanguage.googleapis.com/v1beta/models?key={GEMINI_API_KEY}"
+    try:
+        req = urllib.request.Request(url)
+        with urllib.request.urlopen(req) as response:
+            return json.loads(response.read().decode('utf-8'))
+    except Exception as e:
+        return {"error": str(e)}
+
 @app.route('/<path:page>')
 def render_page(page):
     # Permitir navegación mediante nombres directos (ej. libros.html)
