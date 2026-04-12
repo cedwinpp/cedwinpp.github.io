@@ -111,7 +111,7 @@ class VoiceAssistant {
                     this.ws.send(JSON.stringify({
                         realtimeInput: {
                             audio: {
-                                mimeType: "audio/pcm;rate=16000",
+                                mime_type: "audio/pcm;rate=16000",
                                 data: btoa(binary)
                             }
                         }
