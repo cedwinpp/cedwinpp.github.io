@@ -114,7 +114,7 @@ class VoiceAssistant {
                         realtime_input: {
                             audio: {
                                 data: btoa(binary),
-                                mime_type: "audio/pcm;rate=16000"
+                                mime_type: 'audio/pcm;rate=16000'
                             }
                         }
                     }));
