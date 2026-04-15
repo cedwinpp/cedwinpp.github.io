@@ -13,10 +13,15 @@ GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '')
 def receive_from_gemini(ws, gemini_ws):
     try:
         for message in gemini_ws:
-            # Gemini puede enviar frames de texto (JSON) o binarios
-            # Los reenviamos tal cual para evitar error 1007
+            # Gemini envía JSON como frames BINARIOS (bytes), no como texto.
+            # flask_sock necesita strings → decodificamos a UTF-8 antes de reenviar.
             if isinstance(message, bytes):
-                print(f"[Gemini→Browser] Frame binario: {len(message)} bytes")
+                print(f"[Gemini→Browser] Frame binario ({len(message)} bytes) → decodificando a texto")
+                try:
+                    message = message.decode('utf-8')
+                except UnicodeDecodeError:
+                    # Si no es UTF-8 puro, lo enviamos tal cual (datos binarios raros)
+                    print(f"[Gemini→Browser] No es UTF-8, reenviando como bytes")
             else:
                 print(f"[Gemini→Browser] Frame texto: {len(message)} chars")
             ws.send(message)

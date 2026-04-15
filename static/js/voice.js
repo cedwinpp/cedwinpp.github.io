@@ -121,9 +121,17 @@ class VoiceAssistant {
                 };
             };
 
-            this.ws.onmessage = (event) => {
+            this.ws.onmessage = async (event) => {
                 try {
-                    const response = JSON.parse(event.data);
+                    // Gemini puede enviar frames binarios → el browser los recibe como Blob
+                    // Convertimos a string antes de JSON.parse
+                    let rawData = event.data;
+                    if (rawData instanceof Blob) {
+                        console.log(`[Gemini→] Frame binario (Blob ${rawData.size} bytes) → convirtiendo a texto`);
+                        rawData = await rawData.text();
+                    }
+
+                    const response = JSON.parse(rawData);
 
                     // Log de todos los mensajes para diagnóstico (sin datos de audio)
                     const logSafe = JSON.parse(JSON.stringify(response));
