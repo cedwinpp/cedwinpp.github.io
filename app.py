@@ -100,6 +100,10 @@ def debug_models():
 # intercepta /<path> antes que nuestra ruta genérica ← ese era el bug 404.
 # Las rutas explícitas sin wildcard siempre tienen máxima prioridad en Flask.
 
+@app.route('/acerca.html')
+def page_acerca():
+    return render_template('acerca.html')
+
 @app.route('/libros.html')
 def page_libros():
     return render_template('libros.html')
