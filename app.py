@@ -94,17 +94,41 @@ def debug_models():
     except Exception as e:
         return {"error": str(e)}
 
+
+# ── Rutas explícitas para cada página HTML ──────────────────────────────────
+# IMPORTANTE: Con static_url_path='/', el manejador estático de Flask
+# intercepta /<path> antes que nuestra ruta genérica ← ese era el bug 404.
+# Las rutas explícitas sin wildcard siempre tienen máxima prioridad en Flask.
+
+@app.route('/libros.html')
+def page_libros():
+    return render_template('libros.html')
+
+@app.route('/blog.html')
+def page_blog():
+    return render_template('blog.html')
+
+@app.route('/galeria.html')
+def page_galeria():
+    return render_template('galeria.html')
+
+@app.route('/contacto.html')
+def page_contacto():
+    return render_template('contacto.html')
+
+@app.route('/post-ejemplo.html')
+def page_post_ejemplo():
+    return render_template('post-ejemplo.html')
+
+# Ruta genérica de fallback (por si se añaden más páginas)
 @app.route('/<path:page>')
 def render_page(page):
-    # Permitir navegación mediante nombres directos (ej. libros.html)
     if page.endswith('.html'):
         templates_dir = os.path.join(app.root_path, 'templates')
-        # Verificar si el archivo HTML realmente existe en la carpeta templates
         if os.path.exists(os.path.join(templates_dir, page)):
             return render_template(page)
-    
-    # Si la página no se encuentra o no termina en .html
     abort(404)
+
 
 if __name__ == '__main__':
     # Railway y otros PAAS proveen el puerto en la variable de entorno 'PORT'
