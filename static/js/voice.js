@@ -54,7 +54,14 @@ class VoiceAssistant {
             // Contexto de SALIDA: 24 kHz (Gemini → altavoz)
             this.outputContext = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 24000 });
 
-            this.mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+            this.mediaStream = await navigator.mediaDevices.getUserMedia({
+                audio: {
+                    echoCancellation: true,   // elimina el eco del altavoz
+                    noiseSuppression: true,   // reduce ruido de fondo
+                    autoGainControl: true,    // nivel de mic consistente
+                    sampleRate: 16000
+                }
+            });
 
             const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
             this.ws = new WebSocket(`${protocol}//${window.location.host}/ws/gemini`);
@@ -85,10 +92,17 @@ class VoiceAssistant {
 
                 // 2) Iniciar captura del micrófono
                 const source = this.inputContext.createMediaStreamSource(this.mediaStream);
+                // Buffer 2048 = menor latencia; mono (1 canal entrada, 1 salida)
                 this.processor = this.inputContext.createScriptProcessor(2048, 1, 1);
 
+                // GainNode en 0: el processor necesita estar conectado al destination
+                // para que onaudioprocess se dispare, pero NO queremos oír el micrófono.
+                const silentGain = this.inputContext.createGain();
+                silentGain.gain.value = 0;
+
                 source.connect(this.processor);
-                this.processor.connect(this.inputContext.destination);
+                this.processor.connect(silentGain);
+                silentGain.connect(this.inputContext.destination);
 
                 this.processor.onaudioprocess = (e) => {
                     if (!this.isActive || !this.isReady) return;
