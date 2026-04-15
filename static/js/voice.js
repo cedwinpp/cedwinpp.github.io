@@ -90,31 +90,41 @@ class VoiceAssistant {
                 }, 500);
 
                 const source = this.audioContext.createMediaStreamSource(this.mediaStream);
-                this.processor = this.audioContext.createScriptProcessor(4096, 1, 1);
+                // Buffer 2048 = menor latencia; mono (1 canal entrada, 1 salida)
+                this.processor = this.audioContext.createScriptProcessor(2048, 1, 1);
                 
                 source.connect(this.processor);
                 this.processor.connect(this.audioContext.destination);
 
                 this.processor.onaudioprocess = (e) => {
                     if (!this.isActive || !this.isReady) return;
+                    if (!this.ws || this.ws.readyState !== WebSocket.OPEN) return;
+
                     const inputData = e.inputBuffer.getChannelData(0);
+                    // Conversión Float32 → Int16 (PCM 16-bit little-endian)
                     const pcm16 = new Int16Array(inputData.length);
                     for (let i = 0; i < inputData.length; i++) {
-                        let s = Math.max(-1, Math.min(1, inputData[i]));
-                        pcm16[i] = s < 0 ? s * 0x8000 : s * 0x7FFF;
+                        // Clampear entre -1 y 1 antes de escalar
+                        const clamped = Math.max(-1.0, Math.min(1.0, inputData[i]));
+                        pcm16[i] = clamped < 0
+                            ? Math.round(clamped * 32768)
+                            : Math.round(clamped * 32767);
                     }
                     
+                    // Convertir el buffer Int16 a base64
                     const bytes = new Uint8Array(pcm16.buffer);
                     let binary = '';
                     for (let i = 0; i < bytes.byteLength; i++) {
                         binary += String.fromCharCode(bytes[i]);
                     }
-                    
+                    const base64Audio = btoa(binary);
+
+                    // Estructura exacta que espera la API Gemini BidiGenerateContent
                     this.ws.send(JSON.stringify({
                         realtime_input: {
                             media_chunks: [{
-                                data: btoa(binary),
-                                mime_type: 'audio/pcm;rate=16000'
+                                mime_type: 'audio/pcm;rate=16000',
+                                data: base64Audio
                             }]
                         }
                     }));
@@ -145,7 +155,17 @@ class VoiceAssistant {
                 } catch(e) { /* Ignorar mensajes mal formados */ }
             };
             
-            this.ws.onclose = () => this.stopVoice();
+            this.ws.onclose = (event) => {
+                console.warn(`[VoiceAssistant] WebSocket cerrado. Código: ${event.code}, Razón: "${event.reason || 'ninguna'}"`);
+                // 1007 = Invalid frame payload data (error de formato de audio)
+                if (event.code === 1007) {
+                    console.error('[VoiceAssistant] ERROR 1007: el servidor rechazó el audio. Revisa la codificación PCM.');
+                }
+                this.stopVoice();
+            };
+            this.ws.onerror = (err) => {
+                console.error('[VoiceAssistant] WebSocket error:', err);
+            };
 
         } catch (error) {
             console.error("Error al iniciar voz:", error);

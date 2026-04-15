@@ -13,10 +13,16 @@ GEMINI_API_KEY = os.environ.get('GEMINI_API_KEY', '')
 def receive_from_gemini(ws, gemini_ws):
     try:
         for message in gemini_ws:
+            # Gemini puede enviar frames de texto (JSON) o binarios
+            # Los reenviamos tal cual para evitar error 1007
+            if isinstance(message, bytes):
+                print(f"[Gemini→Browser] Frame binario: {len(message)} bytes")
+            else:
+                print(f"[Gemini→Browser] Frame texto: {len(message)} chars")
             ws.send(message)
     except Exception as e:
         error_msg = f"La conexión con Gemini se cerró: {str(e)}"
-        print(error_msg)
+        print(f"[ERROR receive_from_gemini] {error_msg}")
         try:
             ws.send(f'{{"error": "{error_msg}"}}')
         except:
@@ -32,7 +38,12 @@ def gemini_ws_proxy(ws):
     ws_url = f"wss://generativelanguage.googleapis.com/ws/google.ai.generativelanguage.v1beta.GenerativeService.BidiGenerateContent?key={GEMINI_API_KEY}"
     
     try:
-        with websockets.sync.client.connect(ws_url) as gemini_ws:
+        # Aumentar timeout para conexiones de larga duración (voz)
+        with websockets.sync.client.connect(
+            ws_url,
+            additional_headers={"Content-Type": "application/json"},
+            open_timeout=30
+        ) as gemini_ws:
             # Iniciar hilo que lee de Gemini y envía al cliente (Navegador)
             t = threading.Thread(target=receive_from_gemini, args=(ws, gemini_ws), daemon=True)
             t.start()
@@ -41,12 +52,19 @@ def gemini_ws_proxy(ws):
             while True:
                 data = ws.receive()
                 if data is None:
+                    print("[Browser→Gemini] Cliente desconectado.")
                     break
-                gemini_ws.send(data)
+                # Solo reenviamos texto (JSON) - el audio viene ya como base64 en JSON
+                if isinstance(data, str):
+                    gemini_ws.send(data)
+                else:
+                    # Si llegara binario del browser, también lo pasamos
+                    gemini_ws.send(data)
     except Exception as e:
         import traceback
         error_msg = f"Error en conexión: {str(e)}"
-        print(error_msg)
+        print(f"[ERROR proxy] {error_msg}")
+        print(traceback.format_exc())
         try:
             ws.send(f'{{"error": "{error_msg}"}}')
         except:
