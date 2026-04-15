@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acerca del Autor - Ciro Edwin Portocarrero Pimentel</title>
-    <meta name="description" content="Biografía completa, trayectoria académica y publicaciones científicas de Ciro Edwin Portocarrero Pimentel, físico, doctor y escritor peruano.">
-    <meta name="keywords" content="Ciro Edwin Portocarrero Pimentel, físico peruano, doctor física, Universidad Complutense Madrid, publicaciones científicas, autor peruano">
+    <meta name="description" content="Currículum vitae completo de Ciro Edwin Portocarrero Pimentel: físico, doctor por la UCM, escritor, docente y funcionario de la Comunidad de Madrid.">
+    <meta name="keywords" content="Ciro Edwin Portocarrero Pimentel, físico peruano, doctor física, Universidad Complutense Madrid, publicaciones científicas, autor peruano, curriculum vitae">
 
     <!-- Open Graph -->
     <meta property="og:title" content="Acerca del Autor - Ciro Edwin Portocarrero Pimentel">
-    <meta property="og:description" content="Físico, doctor por la UCM, escritor y docente. Trayectoria académica y científica completa.">
+    <meta property="og:description" content="Físico, doctor por la UCM, escritor y docente. Currículum vitae completo.">
     <meta property="og:image" content="https://cedwinpp.github.io/images/edwin_2.png">
     <meta property="og:url" content="https://cedwinpp.github.io/acerca.html">
     <meta property="og:type" content="website">
@@ -46,10 +46,10 @@
             line-height: 1.7;
         }
 
-        /* ── Header / Nav (reutiliza el de style.css) ── */
+        /* ── Header / Nav ── */
         .page-header { background: rgba(13,17,23,0.97); backdrop-filter: blur(10px); }
 
-        /* ── Hero de página ── */
+        /* ── Hero ── */
         .about-hero {
             background: linear-gradient(135deg, #0d1117 0%, #161b24 50%, #0a1628 100%);
             border-bottom: 1px solid var(--border);
@@ -64,7 +64,7 @@
             background: radial-gradient(ellipse at 30% 50%, rgba(201,168,76,0.08) 0%, transparent 60%),
                         radial-gradient(ellipse at 70% 50%, rgba(31,111,235,0.06) 0%, transparent 60%);
         }
-        .about-hero-inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+        .about-hero-inner { position: relative; z-index: 1; max-width: 760px; margin: 0 auto; }
         .about-photo {
             width: 160px; height: 160px;
             border-radius: 50%;
@@ -89,9 +89,31 @@
         }
         .about-hero p { color: var(--text-muted); font-size: 1rem; }
 
+        /* ── Info personal cards ── */
+        .personal-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 0.8rem;
+            margin-top: 1.5rem;
+        }
+        .personal-item {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.7rem 1rem;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.7rem;
+        }
+        .personal-item .pi-icon { font-size: 1.1rem; margin-top: 0.1rem; flex-shrink: 0; }
+        .personal-item .pi-label { font-size: 0.72rem; color: var(--gold); text-transform: uppercase; letter-spacing: 0.1em; font-weight: 700; }
+        .personal-item .pi-value { font-size: 0.88rem; color: var(--text); }
+        .personal-item a { color: var(--accent); text-decoration: none; }
+        .personal-item a:hover { text-decoration: underline; }
+
         /* ── Layout principal ── */
         .about-main {
-            max-width: 960px;
+            max-width: 980px;
             margin: 0 auto;
             padding: 4rem 2rem 5rem;
             display: flex;
@@ -100,7 +122,6 @@
         }
 
         /* ── Sección genérica ── */
-        .about-section {}
         .section-label {
             display: inline-flex;
             align-items: center;
@@ -128,21 +149,22 @@
         .about-section p { color: var(--text); margin-bottom: 1rem; }
         .about-section p:last-child { margin-bottom: 0; }
 
-        /* ── Tarjetas de timeline ── */
+        /* ── Timeline ── */
         .timeline { display: flex; flex-direction: column; gap: 1.2rem; }
         .tl-item {
             display: grid;
-            grid-template-columns: 90px 1fr;
+            grid-template-columns: 110px 1fr;
             gap: 1.2rem;
             align-items: start;
         }
         .tl-year {
             font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
+            font-size: 0.95rem;
             font-weight: 700;
             color: var(--gold);
-            padding-top: 0.15rem;
+            padding-top: 0.8rem;
             text-align: right;
+            line-height: 1.3;
         }
         .tl-body {
             background: var(--card-bg);
@@ -160,10 +182,12 @@
         .tl-body .tl-inst {
             font-size: 0.85rem;
             color: var(--gold-lt);
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.5rem;
             font-style: italic;
         }
-        .tl-body p { font-size: 0.9rem; color: var(--text-muted); margin: 0; }
+        .tl-body p { font-size: 0.88rem; color: var(--text-muted); margin: 0 0 0.3rem; }
+        .tl-body ul { margin: 0.4rem 0 0 1.2rem; }
+        .tl-body ul li { font-size: 0.86rem; color: var(--text-muted); margin-bottom: 0.2rem; }
 
         /* ── Publicaciones científicas ── */
         .pub-list { display: flex; flex-direction: column; gap: 1rem; }
@@ -178,10 +202,7 @@
             align-items: start;
             transition: border-color 0.2s, transform 0.2s;
         }
-        .pub-card:hover {
-            border-color: var(--gold);
-            transform: translateX(4px);
-        }
+        .pub-card:hover { border-color: var(--gold); transform: translateX(4px); }
         .pub-year-badge {
             background: rgba(201,168,76,0.15);
             color: var(--gold);
@@ -192,34 +213,11 @@
             white-space: nowrap;
             border: 1px solid rgba(201,168,76,0.3);
         }
-        .pub-info h3 {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 0.3rem;
-            line-height: 1.4;
-        }
-        .pub-info .pub-journal {
-            font-size: 0.82rem;
-            color: var(--accent);
-            font-style: italic;
-            margin-bottom: 0.2rem;
-        }
-        .pub-info .pub-authors {
-            font-size: 0.8rem;
-            color: var(--text-muted);
-        }
-        .pub-info a {
-            display: inline-block;
-            margin-top: 0.4rem;
-            font-size: 0.8rem;
-            color: var(--gold);
-            text-decoration: none;
-            border-bottom: 1px solid rgba(201,168,76,0.3);
-        }
-        .pub-info a:hover { border-color: var(--gold); }
+        .pub-info h3 { font-size: 0.95rem; font-weight: 700; color: #fff; margin-bottom: 0.3rem; line-height: 1.4; }
+        .pub-info .pub-journal { font-size: 0.82rem; color: var(--accent); font-style: italic; margin-bottom: 0.2rem; }
+        .pub-info .pub-authors  { font-size: 0.8rem; color: var(--text-muted); }
 
-        /* ── Habilidades / áreas ── */
+        /* ── Habilidades ── */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -236,15 +234,23 @@
         .skill-card:hover { border-color: var(--gold); }
         .skill-icon { font-size: 2rem; margin-bottom: 0.5rem; }
         .skill-card h3 { font-size: 0.95rem; color: #fff; margin-bottom: 0.3rem; }
-        .skill-card p { font-size: 0.82rem; color: var(--text-muted); }
+        .skill-card p  { font-size: 0.82rem; color: var(--text-muted); }
 
-        /* ── Divider ── */
-        hr.about-divider {
-            border: none;
-            border-top: 1px solid var(--border);
+        /* ── Badge chips ── */
+        .chip-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.8rem; }
+        .chip {
+            background: rgba(31,111,235,0.12);
+            border: 1px solid rgba(31,111,235,0.3);
+            color: #a0c4ff;
+            font-size: 0.8rem;
+            padding: 0.25rem 0.7rem;
+            border-radius: 20px;
         }
 
-        /* ── Footer básico ── */
+        /* ── Divider ── */
+        hr.about-divider { border: none; border-top: 1px solid var(--border); }
+
+        /* ── Footer ── */
         .main-footer {
             text-align: center;
             padding: 2rem;
@@ -254,8 +260,9 @@
         }
 
         @media (max-width: 600px) {
-            .tl-item { grid-template-columns: 70px 1fr; gap: 0.8rem; }
+            .tl-item { grid-template-columns: 80px 1fr; gap: 0.8rem; }
             .pub-card { grid-template-columns: 1fr; }
+            .personal-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -284,6 +291,38 @@
             <p class="subtitle">Físico · Doctor · Escritor · Docente</p>
             <p>De las alturas de los Andes peruanos a los laboratorios de Madrid,<br>
                un camino guiado siempre por la curiosidad y la pasión por el conocimiento.</p>
+
+            <!-- Información personal -->
+            <div class="personal-grid">
+                <div class="personal-item">
+                    <span class="pi-icon">📍</span>
+                    <div>
+                        <div class="pi-label">Dirección</div>
+                        <div class="pi-value">Berna 4, 28840 Mejorada del Campo, Madrid, España</div>
+                    </div>
+                </div>
+                <div class="personal-item">
+                    <span class="pi-icon">📞</span>
+                    <div>
+                        <div class="pi-label">Teléfono</div>
+                        <div class="pi-value">679 269 514</div>
+                    </div>
+                </div>
+                <div class="personal-item">
+                    <span class="pi-icon">✉️</span>
+                    <div>
+                        <div class="pi-label">Correo electrónico</div>
+                        <div class="pi-value"><a href="mailto:cedwinpp@gmail.com">cedwinpp@gmail.com</a></div>
+                    </div>
+                </div>
+                <div class="personal-item">
+                    <span class="pi-icon">🇪🇸</span>
+                    <div>
+                        <div class="pi-label">Nacionalidad / Nacimiento</div>
+                        <div class="pi-value">Española · 08 de agosto de 1964</div>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -301,57 +340,227 @@
             </p>
             <p>
                 Completé mis estudios primarios en mi tierra natal antes de trasladarme a Lima, donde
-                cursé la secundaria y obtuve la licenciatura en Ciencias Físicas. La vida en la capital
-                me curtió sin arrancarme las raíces andinas que definen mi mirada sobre el mundo y
-                sobre la escritura.
+                cursé la secundaria y obtuve la licenciatura en Ciencias Físicas con calificación de
+                <strong>Sobresaliente</strong> en la Universidad Nacional de Ingeniería. La vida en la
+                capital me curtió sin arrancarme las raíces andinas.
             </p>
             <p>
                 Mi insaciable sed de conocimiento me llevó al otro lado del Atlántico: Madrid, donde
-                alcancé el grado de <strong>doctor en Ciencias Físicas</strong> por la
-                <strong>Universidad Complutense de Madrid (UCM)</strong>. Durante esos años publiqué
-                trabajos de investigación internacionales y consolidé mi vocación docente, que hoy
-                continúa a través de las tutorías online y de mis libros de texto.
+                alcancé el grado de <strong>Doctor en Ciencias Físicas (Sobresaliente Cum-Laude)</strong>
+                por la <strong>Universidad Complutense de Madrid</strong>. Desde el año 2000 soy
+                <strong>Funcionario de Carrera</strong> del Cuerpo de Profesores de Enseñanza Secundaria
+                de la Comunidad de Madrid, ejerciendo la docencia de Matemáticas en diversos institutos.
             </p>
             <p>
-                A pesar de la solidez de mi formación científica — o quizás gracias a ella — siento
-                que la literatura es el otro hemisferio de mi existencia. Escribir es para mí otra
-                forma de investigar: sobre la memoria, el alma humana y la identidad cultural andina.
-                Así, cada novela, cada relato, es un puente entre la precisión de la ciencia y la
-                profundidad de la narrativa.
+                En 2017 amplié mi formación con una especialización en <strong>Neurociencias</strong>
+                en la Universidad de Salamanca. A pesar de la solidez de mi formación científica —
+                o quizás gracias a ella — siento que la literatura es el otro hemisferio de mi existencia:
+                escribir es otra forma de investigar sobre la memoria, el alma humana y la identidad
+                cultural andina.
             </p>
         </section>
 
         <hr class="about-divider">
 
-        <!-- ── FORMACIÓN ── -->
+        <!-- ── EXPERIENCIA LABORAL ── -->
+        <section class="about-section">
+            <span class="section-label">💼 Experiencia</span>
+            <h2>Experiencia Laboral</h2>
+
+            <div class="timeline">
+
+                <!-- Comunidad de Madrid -->
+                <div class="tl-item">
+                    <div class="tl-year">2000<br>Actualidad</div>
+                    <div class="tl-body">
+                        <h3>Profesor de Matemáticas — Enseñanza Secundaria y Bachillerato</h3>
+                        <div class="tl-inst">Comunidad de Madrid · Consejería de Educación</div>
+                        <p>Funcionario de Carrera · NRP: 5199881368 A0590</p>
+                        <ul>
+                            <li><strong>2013 – Actualidad:</strong> I.E.S. Gaspar Sanz, Meco</li>
+                            <li><strong>2011 – 2013:</strong> I.E.S. Miguel Catalán, Coslada</li>
+                            <li><strong>2010 – 2011:</strong> I.E.S. Manuel de Falla, Coslada</li>
+                            <li><strong>2005 – 2010:</strong> I.E.S. Numancia, Puente de Vallecas</li>
+                            <li><strong>2004 – 2005:</strong> I.E.S. Maestro Matías Bravo, Valdemoro</li>
+                            <li><strong>2003 – 2004:</strong> I.E.S. El Espinillo, Villaverde</li>
+                            <li><strong>2002 – 2003:</strong> I.E.S. Camilo José Cela, Pozuelo</li>
+                            <li><strong>2001 – 2002:</strong> I.E.S. Villa de Valdemoro</li>
+                            <li><strong>2000 – 2001:</strong> C.E.A. "Colmenar Viejo"</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Eureka / Formación de Formadores -->
+                <div class="tl-item">
+                    <div class="tl-year">1999</div>
+                    <div class="tl-body">
+                        <h3>Formación de Formadores</h3>
+                        <div class="tl-inst">EUREKA / NW Leader Mix U.T.E.</div>
+                        <p>Actividad de formación y capacitación docente.</p>
+                    </div>
+                </div>
+
+                <!-- Aula Técnica Madrid -->
+                <div class="tl-item">
+                    <div class="tl-year">1997 – 2000</div>
+                    <div class="tl-body">
+                        <h3>Profesor de Física (Nivel Universitario)</h3>
+                        <div class="tl-inst">Aula Técnica – Academia de Formación de Ingenieros · Madrid</div>
+                        <p>Reina Victoria, 15 — 28003 Madrid · Tlf: 4562070</p>
+                        <ul>
+                            <li>Teoría de Campos Electromagnéticos</li>
+                            <li>Física General I &amp; II</li>
+                            <li>Mecánica Teórica</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- UNI Lima - Profesor Ayudante -->
+                <div class="tl-item">
+                    <div class="tl-year">1989 – 1991</div>
+                    <div class="tl-body">
+                        <h3>Profesor Ayudante</h3>
+                        <div class="tl-inst">Facultad de Ciencias Físicas · Universidad Nacional de Ingeniería — Lima, Perú</div>
+                        <ul>
+                            <li>Cátedra de Física Cuántica</li>
+                            <li>Cátedra de Métodos Matemáticos de la Física</li>
+                            <li>Cátedra de Física Estadística</li>
+                            <li>Cátedra de Física General</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Holy Trinity -->
+                <div class="tl-item">
+                    <div class="tl-year">1988 – 1991</div>
+                    <div class="tl-body">
+                        <h3>Profesor de Matemáticas</h3>
+                        <div class="tl-inst">Colegio Secundario "Holy Trinity" — Lima, Perú</div>
+                        <ul>
+                            <li>Clases teórico-prácticas de Matemáticas</li>
+                            <li>Diseño e implementación del laboratorio de Física</li>
+                            <li>Colaborador en la reforma de la estructura curricular</li>
+                        </ul>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <hr class="about-divider">
+
+        <!-- ── FORMACIÓN REGLADA ── -->
         <section class="about-section">
             <span class="section-label">🎓 Formación</span>
-            <h2>Trayectoria Académica</h2>
+            <h2>Educación y Formación</h2>
+
             <div class="timeline">
+
                 <div class="tl-item">
-                    <div class="tl-year">Infancia</div>
+                    <div class="tl-year">2017</div>
                     <div class="tl-body">
-                        <h3>Estudios Primarios</h3>
-                        <div class="tl-inst">Antabamba, Apurímac — Perú</div>
-                        <p>Primeros años marcados por la riqueza cultural andina y la naturaleza de los Andes.</p>
+                        <h3>Especialización en Neurociencias</h3>
+                        <div class="tl-inst">Universidad de Salamanca — España</div>
+                        <p>Profundización en el estudio del sistema nervioso, procesos cognitivos y aplicaciones educativas de las neurociencias.</p>
                     </div>
                 </div>
+
                 <div class="tl-item">
-                    <div class="tl-year">Lima</div>
+                    <div class="tl-year">2006</div>
                     <div class="tl-body">
-                        <h3>Secundaria y Licenciatura en Ciencias Físicas</h3>
-                        <div class="tl-inst">Universidad de Lima — Perú</div>
-                        <p>Formación científica en el campo de la Física, adaptándose a la vida urbana sin perder el vínculo con sus raíces.</p>
+                        <h3>Funcionario de Carrera — Cuerpo de Profesores de Enseñanza Secundaria</h3>
+                        <div class="tl-inst">Comunidad de Madrid — España</div>
+                        <p>NRP: 5199881368 A0590</p>
                     </div>
                 </div>
+
                 <div class="tl-item">
-                    <div class="tl-year">Madrid</div>
+                    <div class="tl-year">1999</div>
                     <div class="tl-body">
-                        <h3>Doctor en Ciencias Físicas (PhD)</h3>
-                        <div class="tl-inst">Universidad Complutense de Madrid (UCM) — España</div>
-                        <p>Investigación doctoral, publicaciones internacionales y consolidación de la vocación docente e investigadora.</p>
+                        <h3>Doctor en Ciencias Físicas <span style="color:var(--gold-lt); font-weight:400; font-style:italic;">(Sobresaliente Cum-Laude)</span></h3>
+                        <div class="tl-inst">Universidad Complutense de Madrid · Facultad de Ciencias Físicas — España</div>
+                        <p><strong>Tesis Doctoral:</strong> <em>"La componente de Radiación Cherenkov como elemento diferenciador entre cascadas atmosféricas iniciadas por rayos Gamma y por protones cósmicos en el rango de energía de 10<sup>10</sup> y 10<sup>16</sup> TeV."</em></p>
                     </div>
                 </div>
+
+                <div class="tl-item">
+                    <div class="tl-year">1998</div>
+                    <div class="tl-body">
+                        <h3>Certificado de Aptitud Pedagógica (CAP)</h3>
+                        <div class="tl-inst">España</div>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <div class="tl-year">1991</div>
+                    <div class="tl-body">
+                        <h3>Licenciado en Ciencias Físicas <span style="color:var(--gold-lt); font-weight:400; font-style:italic;">(Sobresaliente)</span></h3>
+                        <div class="tl-inst">Universidad Nacional de Ingeniería · Facultad de Ciencias Físicas — Lima, Perú</div>
+                        <p><strong>Tesis de Licenciatura:</strong> <em>"Análisis de continuidad de soluciones de las ecuaciones Campo Gravitatorio de Einstein."</em></p>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <hr class="about-divider">
+
+        <!-- ── FORMACIÓN COMPLEMENTARIA ── -->
+        <section class="about-section">
+            <span class="section-label">📚 Formación Continua</span>
+            <h2>Formación Complementaria</h2>
+
+            <div class="timeline">
+
+                <div class="tl-item">
+                    <div class="tl-year">2006/07</div>
+                    <div class="tl-body">
+                        <h3>Retos Matemáticos en Internet</h3>
+                        <div class="tl-inst">CAP Vallecas</div>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <div class="tl-year">2007/08</div>
+                    <div class="tl-body">
+                        <h3>Física y Química en el Aula de Informática <span style="font-size:0.8rem; color:var(--text-muted);">(ponente)</span></h3>
+                        <div class="tl-inst">CAP Parla</div>
+                        <p><strong>Iniciación a la Informática para Profesores</strong> <em style="font-size:0.82rem;">(ponente)</em> — CAP Vallecas</p>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <div class="tl-year">2008/09</div>
+                    <div class="tl-body">
+                        <h3>Utilización de la Pizarra Digital <span style="font-size:0.8rem; color:var(--text-muted);">(organizador-ponente)</span></h3>
+                        <div class="tl-inst">Madrid Capital</div>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <div class="tl-year">2009/10</div>
+                    <div class="tl-body">
+                        <h3>Aplicaciones de GeoGebra, Wiris y PDI en las Unidades Didácticas de Matemáticas</h3>
+                        <div class="tl-inst">CAP Madrid Capital</div>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <div class="tl-year">2010/11</div>
+                    <div class="tl-body">
+                        <h3>Mecánica Cuántica</h3>
+                        <div class="tl-inst">CAP Madrid Sur</div>
+                    </div>
+                </div>
+
+                <div class="tl-item">
+                    <div class="tl-year">2014/15</div>
+                    <div class="tl-body">
+                        <h3>Elaboración de Material Didáctico Interdisciplinar</h3>
+                        <div class="tl-inst">CAP Madrid Este</div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -360,45 +569,124 @@
         <!-- ── PUBLICACIONES CIENTÍFICAS ── -->
         <section class="about-section">
             <span class="section-label">🔬 Ciencia</span>
-            <h2>Publicaciones Científicas</h2>
+            <h2>Publicaciones Científicas Internacionales</h2>
             <p style="color: var(--text-muted); margin-bottom: 1.5rem;">
-                A lo largo de su trayectoria investigadora, Ciro Edwin ha publicado trabajos en revistas
-                científicas internacionales en el ámbito de la Física.
+                Trabajos publicados en revistas científicas de primer nivel y presentados en congresos internacionales.
             </p>
+
             <div class="pub-list">
 
                 <div class="pub-card">
-                    <span class="pub-year-badge">Publicación 1</span>
+                    <span class="pub-year-badge">1994</span>
                     <div class="pub-info">
-                        <h3>Título de la publicación científica (pendiente de completar)</h3>
-                        <div class="pub-journal">Revista / Journal Internacional</div>
-                        <div class="pub-authors">C. E. Portocarrero Pimentel et al.</div>
-                        <!-- <a href="#" target="_blank">Ver en DOI / ResearchGate →</a> -->
+                        <h3>Study of the Matching of Solutions of the Einstein Equations According to Darmois</h3>
+                        <div class="pub-journal">The Astrophysical Journal 427:947–950, 1 June 1994</div>
+                        <div class="pub-authors">Armando Bernui &amp; C. Edwin Portocarrero</div>
                     </div>
                 </div>
 
                 <div class="pub-card">
-                    <span class="pub-year-badge">Publicación 2</span>
+                    <span class="pub-year-badge">1998</span>
                     <div class="pub-info">
-                        <h3>Título de la publicación científica (pendiente de completar)</h3>
-                        <div class="pub-journal">Revista / Journal Internacional</div>
-                        <div class="pub-authors">C. E. Portocarrero Pimentel et al.</div>
+                        <h3>On the Lateral Distribution of Cherenkov Light produced by Extensive Air Showers in the Energy Range 0.01–10 TeV at Several Observatory Altitudes</h3>
+                        <div class="pub-journal">Journal of Physics G — 1998</div>
+                        <div class="pub-authors">C. Edwin Portocarrero &amp; F. Arqueros</div>
                     </div>
                 </div>
 
                 <div class="pub-card">
-                    <span class="pub-year-badge">Publicación 3</span>
+                    <span class="pub-year-badge">1999</span>
                     <div class="pub-info">
-                        <h3>Título de la publicación científica (pendiente de completar)</h3>
-                        <div class="pub-journal">Revista / Journal Internacional</div>
-                        <div class="pub-authors">C. E. Portocarrero Pimentel et al.</div>
+                        <h3>Separation of Gamma and Proton Initiated Air Showers in the Energy Range 1 TeV–10 PeV at Several Observatory Depths</h3>
+                        <div class="pub-journal">Journal of Physics G — 1999</div>
+                        <div class="pub-authors">C. Edwin Portocarrero &amp; F. Arqueros</div>
                     </div>
                 </div>
 
             </div>
-            <p style="margin-top: 1.2rem; font-size: 0.85rem; color: var(--text-muted);">
-                💡 <em>Para añadir tus publicaciones reales, comparte los títulos, revistas y DOIs y los integro aquí.</em>
-            </p>
+
+            <!-- Comunicaciones en Congresos -->
+            <h2 style="margin-top: 2rem; font-size: 1.4rem;">Comunicaciones en Congresos</h2>
+            <div class="pub-list" style="margin-top: 0.8rem;">
+
+                <div class="pub-card">
+                    <span class="pub-year-badge">ICRC 1995</span>
+                    <div class="pub-info">
+                        <h3>Separation of Gamma and Proton Showers (1–10<sup>4</sup> TeV) Using the Lateral Distribution of Cherenkov Light at Several Observatory Depths</h3>
+                        <div class="pub-journal">XXIV ICRC — Roma, 1995</div>
+                        <div class="pub-authors">C. Portocarrero &amp; F. Arqueros</div>
+                    </div>
+                </div>
+
+                <div class="pub-card">
+                    <span class="pub-year-badge">Padova 1995</span>
+                    <div class="pub-info">
+                        <h3>Lateral Distribution of Cherenkov Light at Several Observatory Depths</h3>
+                        <div class="pub-journal">The Padova Workshop on TeV Gamma-Ray Astrophysics — 1995</div>
+                        <div class="pub-authors">C. Portocarrero &amp; F. Arqueros</div>
+                    </div>
+                </div>
+
+                <div class="pub-card">
+                    <span class="pub-year-badge">Lisboa 1993</span>
+                    <div class="pub-info">
+                        <h3>Study of the Matching of Solutions of the Einstein Equations According to Darmois</h3>
+                        <div class="pub-journal">Congreso Internacional de Astronomía-Astrofísica — Lisboa, Portugal, 1993</div>
+                        <div class="pub-authors">C. Edwin Portocarrero</div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <hr class="about-divider">
+
+        <!-- ── BECAS ── -->
+        <section class="about-section">
+            <span class="section-label">🏆 Becas</span>
+            <h2>Becas y Proyectos de Investigación</h2>
+
+            <div class="timeline">
+                <div class="tl-item">
+                    <div class="tl-year">1997</div>
+                    <div class="tl-body">
+                        <h3>Proyecto EP 23548 — Programa ESPRIT</h3>
+                        <div class="tl-inst">Comunidad Europea</div>
+                        <p><em>"Ultra Fast Single Photon Counting Imaging (PHOTIM)"</em></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="about-divider">
+
+        <!-- ── CONOCIMIENTOS INFORMÁTICOS ── -->
+        <section class="about-section">
+            <span class="section-label">💻 Tecnología</span>
+            <h2>Conocimientos Informáticos</h2>
+
+            <div class="skills-grid">
+                <div class="skill-card">
+                    <div class="skill-icon">🖥️</div>
+                    <h3>Simulación Monte Carlo</h3>
+                    <p>4 años de experiencia en simulación de cascadas atmosféricas iniciadas por rayos cósmicos mediante el método de Monte Carlo.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">⚛️</div>
+                    <h3>CERN Software</h3>
+                    <p>4 años de experiencia con el software de investigación del Centro Europeo de Investigaciones Nucleares (CERN).</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">📊</div>
+                    <h3>Ofimática</h3>
+                    <p>Dominio de herramientas de productividad, presentaciones y hojas de cálculo para entornos académicos y docentes.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">📐</div>
+                    <h3>GeoGebra &amp; Wiris</h3>
+                    <p>Aplicación de software matemático y pizarras digitales interactivas en el aula.</p>
+                </div>
+            </div>
         </section>
 
         <hr class="about-divider">
@@ -407,11 +695,17 @@
         <section class="about-section">
             <span class="section-label">⚡ Pasiones</span>
             <h2>Áreas de Interés</h2>
+
             <div class="skills-grid">
                 <div class="skill-card">
                     <div class="skill-icon">⚛️</div>
                     <h3>Física Teórica</h3>
-                    <p>Investigación en ciencias físicas e impacto divulgativo del conocimiento científico.</p>
+                    <p>Investigación en ciencias físicas, astrofísica de rayos cósmicos y divulgación del conocimiento científico.</p>
+                </div>
+                <div class="skill-card">
+                    <div class="skill-icon">🧠</div>
+                    <h3>Neurociencias</h3>
+                    <p>Aplicación de los avances en neurociencias al aprendizaje, la cognición y la innovación educativa.</p>
                 </div>
                 <div class="skill-card">
                     <div class="skill-icon">📚</div>
@@ -422,11 +716,6 @@
                     <div class="skill-icon">🎓</div>
                     <h3>Educación</h3>
                     <p>Docencia de Matemáticas y Física, con libros de texto y tutorías online.</p>
-                </div>
-                <div class="skill-card">
-                    <div class="skill-icon">🎵</div>
-                    <h3>Música</h3>
-                    <p>Creación musical como extensión emotiva de la escritura y los recuerdos.</p>
                 </div>
                 <div class="skill-card">
                     <div class="skill-icon">🏔️</div>
