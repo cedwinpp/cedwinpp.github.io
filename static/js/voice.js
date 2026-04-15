@@ -84,6 +84,7 @@ class VoiceAssistant {
                         generation_config: {
                             response_modalities: ["AUDIO"],
                             speech_config: {
+                                language_code: "es-PE",
                                 voice_config: {
                                     prebuilt_voice_config: { voice_name: "Aoede" }
                                 }
