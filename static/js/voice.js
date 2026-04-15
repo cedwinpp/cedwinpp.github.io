@@ -1,13 +1,14 @@
-// voice.js - Gemini Live Voice Integration
+// voice.js - Gemini Live Voice Integration (v3 - fix playback + timing)
 class VoiceAssistant {
     constructor() {
         this.ws = null;
-        this.audioContext = null;
+        this.inputContext = null;   // 16 kHz — para el micrófono
+        this.outputContext = null;  // 24 kHz — para reproducir respuestas de Gemini
         this.mediaStream = null;
         this.processor = null;
         this.isActive = false;
         this.isReady = false;
-        
+
         this.initUI();
     }
 
@@ -48,83 +49,72 @@ class VoiceAssistant {
     async startVoice() {
         const btn = document.getElementById('voice-assistant-btn');
         try {
-            this.audioContext = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 16000 });
+            // Contexto de ENTRADA: 16 kHz (micrófono → Gemini)
+            this.inputContext = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 16000 });
+            // Contexto de SALIDA: 24 kHz (Gemini → altavoz)
+            this.outputContext = new (window.AudioContext || window.webkitAudioContext)({ sampleRate: 24000 });
+
             this.mediaStream = await navigator.mediaDevices.getUserMedia({ audio: true });
-            
+
             const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
             this.ws = new WebSocket(`${protocol}//${window.location.host}/ws/gemini`);
 
             this.ws.onopen = () => {
                 this.isActive = true;
-                this.isReady = false; // Reset al conectar
-                btn.style.backgroundColor = '#28a745'; // verde activo
+                this.isReady = false;
+                btn.style.backgroundColor = '#ffc107'; // amarillo = conectando
                 btn.classList.add('pulse-animation');
-                
-                // Configurar Gemini
+
+                // 1) Enviar configuración de Gemini
                 this.ws.send(JSON.stringify({
                     setup: {
                         model: 'models/gemini-2.5-flash-native-audio-latest',
                         system_instruction: {
-                            parts: [{text: "Eres un asistente de voz amable en la página personal del autor Ciro Edwin Portocarrero Pimentel. Tu objetivo es dar una bienvenida muy breve y amigable. Responde siempre de forma corta, oral, y con tono cálido invitando a explorar sus historias y su música. Ocasionalmente menciona tu nombre, Rimi."}]
+                            parts: [{ text: "Eres Rimi, un asistente de voz amable en la página personal del autor Ciro Edwin Portocarrero Pimentel. Da una bienvenida breve y cálida, invitando a explorar sus historias y su música. Sé conciso y usa un tono oral y cercano." }]
                         },
                         generation_config: {
                             response_modalities: ["AUDIO"],
-                            speech_config: { voice_config: { prebuilt_voice_config: { voice_name: "Aoede" } } }
+                            speech_config: {
+                                voice_config: {
+                                    prebuilt_voice_config: { voice_name: "Aoede" }
+                                }
+                            }
                         }
                     }
                 }));
 
-                // Forzamos a que el modelo inicie la charla al conectarse
-                setTimeout(() => {
-                    if (this.isActive && this.ws.readyState === WebSocket.OPEN) {
-                        this.ws.send(JSON.stringify({
-                            client_content: {
-                                turns: [{
-                                    role: "user",
-                                    parts: [{ text: "Hola Rimi, acabo de entrar a la página." }]
-                                }],
-                                turn_complete: true
-                            }
-                        }));
-                    }
-                }, 500);
+                // 2) Iniciar captura del micrófono
+                const source = this.inputContext.createMediaStreamSource(this.mediaStream);
+                this.processor = this.inputContext.createScriptProcessor(2048, 1, 1);
 
-                const source = this.audioContext.createMediaStreamSource(this.mediaStream);
-                // Buffer 2048 = menor latencia; mono (1 canal entrada, 1 salida)
-                this.processor = this.audioContext.createScriptProcessor(2048, 1, 1);
-                
                 source.connect(this.processor);
-                this.processor.connect(this.audioContext.destination);
+                this.processor.connect(this.inputContext.destination);
 
                 this.processor.onaudioprocess = (e) => {
                     if (!this.isActive || !this.isReady) return;
                     if (!this.ws || this.ws.readyState !== WebSocket.OPEN) return;
 
                     const inputData = e.inputBuffer.getChannelData(0);
-                    // Conversión Float32 → Int16 (PCM 16-bit little-endian)
+                    // Float32 → PCM Int16 little-endian
                     const pcm16 = new Int16Array(inputData.length);
                     for (let i = 0; i < inputData.length; i++) {
-                        // Clampear entre -1 y 1 antes de escalar
                         const clamped = Math.max(-1.0, Math.min(1.0, inputData[i]));
                         pcm16[i] = clamped < 0
                             ? Math.round(clamped * 32768)
                             : Math.round(clamped * 32767);
                     }
-                    
-                    // Convertir el buffer Int16 a base64
+
                     const bytes = new Uint8Array(pcm16.buffer);
                     let binary = '';
                     for (let i = 0; i < bytes.byteLength; i++) {
                         binary += String.fromCharCode(bytes[i]);
                     }
-                    const base64Audio = btoa(binary);
 
-                    // Estructura exacta que espera la API Gemini BidiGenerateContent
                     this.ws.send(JSON.stringify({
                         realtime_input: {
                             media_chunks: [{
                                 mime_type: 'audio/pcm;rate=16000',
-                                data: base64Audio
+                                data: btoa(binary)
                             }]
                         }
                     }));
@@ -134,72 +124,124 @@ class VoiceAssistant {
             this.ws.onmessage = (event) => {
                 try {
                     const response = JSON.parse(event.data);
-                    
-                    if (response.setup_complete) {
+
+                    // Log de todos los mensajes para diagnóstico (sin datos de audio)
+                    const logSafe = JSON.parse(JSON.stringify(response));
+                    const sc = logSafe.serverContent || logSafe.server_content;
+                    if (sc) {
+                        const mt = sc.modelTurn || sc.model_turn;
+                        if (mt && mt.parts) {
+                            mt.parts.forEach(p => {
+                                const id = p.inlineData || p.inline_data;
+                                if (id) id.data = '[BASE64_AUDIO]';
+                            });
+                        }
+                    }
+                    console.log('[Gemini→]', JSON.stringify(logSafe).substring(0, 300));
+
+                    // ── Setup completo ──────────────────────────────────────────
+                    if (response.setupComplete || response.setup_complete) {
                         this.isReady = true;
-                        console.log("Rimi está listo para escuchar.");
+                        btn.style.backgroundColor = '#28a745'; // verde = listo
+                        console.log('✅ Rimi está listo para escuchar.');
+
+                        // Saludo inicial SOLO tras recibir setup_complete
+                        if (this.ws.readyState === WebSocket.OPEN) {
+                            this.ws.send(JSON.stringify({
+                                client_content: {
+                                    turns: [{
+                                        role: "user",
+                                        parts: [{ text: "Hola Rimi, acabo de entrar a la página." }]
+                                    }],
+                                    turn_complete: true
+                                }
+                            }));
+                        }
+                        return;
                     }
 
-                    if (response.server_content && response.server_content.model_turn) {
-                        const parts = response.server_content.model_turn.parts;
-                        parts.forEach(part => {
-                            if (part.inline_data && part.inline_data.data) {
-                                this.playAudioBase64(part.inline_data.data);
-                            }
-                        });
-                    } else if (response.error) {
-                        console.error("Error del servidor:", response.error);
+                    // ── Respuesta de audio del modelo ───────────────────────────
+                    const serverContent = response.serverContent || response.server_content;
+                    if (serverContent) {
+                        const modelTurn = serverContent.modelTurn || serverContent.model_turn;
+                        if (modelTurn && modelTurn.parts) {
+                            modelTurn.parts.forEach(part => {
+                                const inlineData = part.inlineData || part.inline_data;
+                                if (inlineData && inlineData.data) {
+                                    console.log(`🔊 Audio recibido: ${inlineData.data.length} bytes base64, mime: ${inlineData.mimeType || inlineData.mime_type}`);
+                                    this.playAudioBase64(inlineData.data);
+                                }
+                            });
+                        }
+                        return;
+                    }
+
+                    // ── Error del servidor proxy ────────────────────────────────
+                    if (response.error) {
+                        console.error('❌ Error del servidor:', response.error);
                         alert(response.error);
                         this.stopVoice();
                     }
-                } catch(e) { /* Ignorar mensajes mal formados */ }
+
+                } catch (e) {
+                    console.warn('[Gemini→] Mensaje no-JSON o parse error:', e.message, event.data?.substring?.(0, 100));
+                }
             };
-            
+
             this.ws.onclose = (event) => {
                 console.warn(`[VoiceAssistant] WebSocket cerrado. Código: ${event.code}, Razón: "${event.reason || 'ninguna'}"`);
-                // 1007 = Invalid frame payload data (error de formato de audio)
                 if (event.code === 1007) {
-                    console.error('[VoiceAssistant] ERROR 1007: el servidor rechazó el audio. Revisa la codificación PCM.');
+                    console.error('❌ ERROR 1007: formato de audio inválido.');
+                } else if (event.code === 1011) {
+                    console.error('❌ ERROR 1011: error interno en Gemini. Revisa el setup JSON.');
                 }
                 this.stopVoice();
             };
+
             this.ws.onerror = (err) => {
                 console.error('[VoiceAssistant] WebSocket error:', err);
             };
 
         } catch (error) {
-            console.error("Error al iniciar voz:", error);
-            alert("No se pudo acceder al micrófono.");
+            console.error('Error al iniciar voz:', error);
+            alert('No se pudo acceder al micrófono: ' + error.message);
             this.stopVoice();
         }
     }
 
+    // Reproduce audio PCM-16 en base64 usando el outputContext a 24 kHz
     playAudioBase64(base64) {
-        if (!this.isActive || !this.audioContext) return;
-        const binaryString = atob(base64);
-        const len = binaryString.length;
-        const bytes = new Uint8Array(len);
-        for (let i = 0; i < len; i++) {
-            bytes[i] = binaryString.charCodeAt(i);
-        }
-        
-        const pcm16 = new Int16Array(bytes.buffer);
-        const audioBuffer = this.audioContext.createBuffer(1, pcm16.length, 24000); 
-        const channelData = audioBuffer.getChannelData(0);
-        
-        for (let i = 0; i < pcm16.length; i++) {
-            channelData[i] = pcm16[i] / 32768.0;
-        }
+        if (!this.isActive || !this.outputContext) return;
+        try {
+            const binaryString = atob(base64);
+            const len = binaryString.length;
+            const bytes = new Uint8Array(len);
+            for (let i = 0; i < len; i++) {
+                bytes[i] = binaryString.charCodeAt(i);
+            }
 
-        const source = this.audioContext.createBufferSource();
-        source.buffer = audioBuffer;
-        source.connect(this.audioContext.destination);
-        source.start(0);
+            const pcm16 = new Int16Array(bytes.buffer);
+            // Crear buffer a 24 kHz (tasa de muestreo de salida de Gemini)
+            const audioBuffer = this.outputContext.createBuffer(1, pcm16.length, 24000);
+            const channelData = audioBuffer.getChannelData(0);
+
+            for (let i = 0; i < pcm16.length; i++) {
+                channelData[i] = pcm16[i] / 32768.0;
+            }
+
+            const source = this.outputContext.createBufferSource();
+            source.buffer = audioBuffer;
+            source.connect(this.outputContext.destination);
+            source.start(0);
+        } catch (e) {
+            console.error('[playAudioBase64] Error reproduciendo audio:', e);
+        }
     }
 
     stopVoice() {
         this.isActive = false;
         this.isReady = false;
+
         if (this.processor) {
             this.processor.disconnect();
             this.processor = null;
@@ -212,9 +254,13 @@ class VoiceAssistant {
             this.ws.close();
             this.ws = null;
         }
-        if (this.audioContext) {
-            this.audioContext.close();
-            this.audioContext = null;
+        if (this.inputContext) {
+            this.inputContext.close();
+            this.inputContext = null;
+        }
+        if (this.outputContext) {
+            this.outputContext.close();
+            this.outputContext = null;
         }
 
         const btn = document.getElementById('voice-assistant-btn');
@@ -225,17 +271,15 @@ class VoiceAssistant {
     }
 }
 
-// Botón animado
+// Animación del botón
 const style = document.createElement('style');
 style.textContent = `
     @keyframes pulse {
-        0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(40, 167, 69, 0.7); }
-        70% { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(40, 167, 69, 0); }
-        100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(40, 167, 69, 0); }
+        0%   { transform: scale(1);   box-shadow: 0 0 0 0   rgba(40, 167, 69, 0.7); }
+        70%  { transform: scale(1.1); box-shadow: 0 0 0 15px rgba(40, 167, 69, 0);   }
+        100% { transform: scale(1);   box-shadow: 0 0 0 0   rgba(40, 167, 69, 0);   }
     }
-    .pulse-animation {
-        animation: pulse 1.5s infinite;
-    }
+    .pulse-animation { animation: pulse 1.5s infinite; }
 `;
 document.head.appendChild(style);
 
