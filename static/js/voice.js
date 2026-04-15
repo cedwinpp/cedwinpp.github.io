@@ -8,6 +8,8 @@ class VoiceAssistant {
         this.processor = null;
         this.isActive = false;
         this.isReady = false;
+        this.modelSpeaking = false; // Rimi está hablando → pausar envío de mic
+        this.nextPlayTime = 0;      // scheduling secuencial de chunks de audio
 
         this.initUI();
     }
@@ -107,6 +109,8 @@ class VoiceAssistant {
                 this.processor.onaudioprocess = (e) => {
                     if (!this.isActive || !this.isReady) return;
                     if (!this.ws || this.ws.readyState !== WebSocket.OPEN) return;
+                    // Pausar envío mientras Rimi habla (evita eco → error 1011)
+                    if (this.modelSpeaking) return;
 
                     const inputData = e.inputBuffer.getChannelData(0);
                     // Float32 → PCM Int16 little-endian
@@ -187,6 +191,7 @@ class VoiceAssistant {
                     if (serverContent) {
                         const modelTurn = serverContent.modelTurn || serverContent.model_turn;
                         if (modelTurn && modelTurn.parts) {
+                            this.modelSpeaking = true; // Rimi empieza a hablar
                             modelTurn.parts.forEach(part => {
                                 const inlineData = part.inlineData || part.inline_data;
                                 if (inlineData && inlineData.data) {
@@ -194,6 +199,18 @@ class VoiceAssistant {
                                     this.playAudioBase64(inlineData.data);
                                 }
                             });
+                        }
+
+                        // Turno completo → Rimi terminó de hablar
+                        if (serverContent.turnComplete || serverContent.turn_complete) {
+                            console.log('🔄 Turno completo — Rimi terminó de hablar.');
+                            // Esperar a que el último chunk termine antes de reactivar mic
+                            const waitMs = Math.max(0, (this.nextPlayTime - this.outputContext.currentTime) * 1000);
+                            setTimeout(() => {
+                                this.modelSpeaking = false;
+                                this.nextPlayTime = 0; // reset para próxima respuesta
+                                console.log('🎤 Micrófono reactivado — escuchando...');
+                            }, waitMs + 200); // +200ms de margen
                         }
                         return;
                     }
@@ -231,22 +248,19 @@ class VoiceAssistant {
         }
     }
 
-    // Reproduce audio PCM-16 en base64 usando el outputContext a 24 kHz
+    // Reproduce chunks de audio PCM-16 en secuencia (sin solapamiento)
     playAudioBase64(base64) {
         if (!this.isActive || !this.outputContext) return;
         try {
             const binaryString = atob(base64);
-            const len = binaryString.length;
-            const bytes = new Uint8Array(len);
-            for (let i = 0; i < len; i++) {
+            const bytes = new Uint8Array(binaryString.length);
+            for (let i = 0; i < binaryString.length; i++) {
                 bytes[i] = binaryString.charCodeAt(i);
             }
 
             const pcm16 = new Int16Array(bytes.buffer);
-            // Crear buffer a 24 kHz (tasa de muestreo de salida de Gemini)
             const audioBuffer = this.outputContext.createBuffer(1, pcm16.length, 24000);
             const channelData = audioBuffer.getChannelData(0);
-
             for (let i = 0; i < pcm16.length; i++) {
                 channelData[i] = pcm16[i] / 32768.0;
             }
@@ -254,11 +268,23 @@ class VoiceAssistant {
             const source = this.outputContext.createBufferSource();
             source.buffer = audioBuffer;
             source.connect(this.outputContext.destination);
-            source.start(0);
+
+            // ── Scheduling secuencial ──────────────────────────────────────
+            // Cada chunk empieza justo cuando termina el anterior,
+            // evitando que todos se reproduzcan al mismo tiempo.
+            const now = this.outputContext.currentTime;
+            if (this.nextPlayTime < now) {
+                this.nextPlayTime = now; // resync si hay silencio
+            }
+            source.start(this.nextPlayTime);
+            this.nextPlayTime += audioBuffer.duration; // avanzar el cursor
+            // ──────────────────────────────────────────────────────────────
+
         } catch (e) {
             console.error('[playAudioBase64] Error reproduciendo audio:', e);
         }
     }
+
 
     stopVoice() {
         this.isActive = false;
