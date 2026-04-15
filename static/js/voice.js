@@ -79,12 +79,11 @@ class VoiceAssistant {
                     setup: {
                         model: 'models/gemini-2.5-flash-native-audio-latest',
                         system_instruction: {
-                            parts: [{ text: "Eres Rimi, un asistente de voz amable en la página personal del autor Ciro Edwin Portocarrero Pimentel. Da una bienvenida breve y cálida, invitando a explorar sus historias y su música. Sé conciso y usa un tono oral y cercano." }]
+                            parts: [{ text: "Eres Rimi, un asistente de voz amable en la página personal del autor peruano Ciro Edwin Portocarrero Pimentel. Habla siempre en español de Perú, con acento y expresiones peruanas naturales (usa palabras como 'pues', 'oye', 'bacán', etc.). Da una bienvenida breve y cálida, invitando a explorar sus historias y su música. Sé conciso y usa un tono oral y cercano." }]
                         },
                         generation_config: {
                             response_modalities: ["AUDIO"],
                             speech_config: {
-                                language_code: "es-PE",
                                 voice_config: {
                                     prebuilt_voice_config: { voice_name: "Aoede" }
                                 }
